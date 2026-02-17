@@ -23,11 +23,11 @@ Team Notes:
 """
 
 from fastapi import APIRouter
-from schemas.risk import VaRRequest
-from services.risk_service import calculate_var
+from backend.schemas.risk import VaRRequest
+from backend.services.risk_service import calculate_var
 
 # Router for all risk-related endpoints
-# Groups risk analytics under a clear RESTful namespace
+# Grobackenups risk analytics under a clear RESTful namespace
 router = APIRouter(prefix="/risk", tags=["Risk"])
 
 

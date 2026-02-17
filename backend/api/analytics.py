@@ -18,8 +18,8 @@ Team Notes:
 """
 
 from fastapi import APIRouter
-from schemas.analytics import AnalyticsRequest
-from services.analytics_service import (
+from backend.schemas.analytics import AnalyticsRequest
+from backend.services.analytics_service import (
     run_cpu_heavy_analysis,
     compute_volatility
 )
@@ -58,26 +58,18 @@ def get_volatility(
     return compute_volatility(ticker, period, iterations)
 
 
-@router.post(
-    "/run",
-    summary="Run heavy analytical computation",
-    description=(
-        "POST-based endpoint used to simulate long-running analytical jobs. "
-        "Accepts parameters that control computational intensity and execution time. "
-        "Primarily used for stress and load testing scenarios."
-    )
-)
-def run_analysis(request: AnalyticsRequest):
-    """
-    Architectural Notes:
-    - Demonstrates a WRITE/EXECUTE-style operation using HTTP POST.
-    - Request body is validated using Pydantic schemas.
-    - Endpoint exists to satisfy REST requirements and performance testing goals.
-
-    Performance Notes:
-    - Computation intensity is controlled via request payload.
-    - Used by JMeter to simulate concurrent analytical workloads.
-    - Serves as a baseline before performance optimizations are applied.
-    """
-    result = run_cpu_heavy_analysis(request.iterations)
-    return {"result": result}
+@router.post("/{ticker}")
+def run_analytics_for_ticker(ticker: str, payload: dict):
+    window = payload.get("params", {}).get("window", 100)
+    result = run_cpu_heavy_analysis(window)
+    
+    return {
+        "summary": {
+            "ticker": ticker,
+            "analysis_type": payload.get("type"),
+            "window": window
+        },
+        "metrics": result,
+        "rows": [],  # Add real rows later
+        "series": []
+    }
