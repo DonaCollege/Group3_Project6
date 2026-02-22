@@ -1,0 +1,148 @@
+\doxysection{app.\+py File Reference}
+\hypertarget{app_8py}{}\label{app_8py}\index{app.py@{app.py}}
+
+
+Streamlit frontend for Financial Analytics API.  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classapp_1_1_api_result}{app.\+Api\+Result}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceapp}{app}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classapp_1_1_api_result}{Api\+Result}} \mbox{\hyperlink{namespaceapp_ae350c4308889c8d25da2915b61bbc8da}{app.\+api\+\_\+request}} (str method, str path, \texorpdfstring{$\ast$}{*}params=None, json=None, timeout=15)
+\item 
+\mbox{\hyperlink{namespaceapp_a92822b0e041df97d1fe2c69dd6347623}{app.\+header\+\_\+with\+\_\+meta}} (str title, str subtitle="{}"{})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceapp_a58cdec70674686cd1e287c7a58de352c}{app.\+API\+\_\+\+BASE\+\_\+\+URL}} = os.\+getenv("{}API\+\_\+\+BASE\+\_\+\+URL"{}, "{}http\+://localhost\+:8000"{}).rstrip("{}/"{})
+\item 
+\mbox{\hyperlink{namespaceapp_a2c5b508829b4995a003ebbea7efab85e}{app.\+page\+\_\+title}}
+\item 
+\mbox{\hyperlink{namespaceapp_adcd4161b2b197e0cf698a7ae8ca84488}{app.\+page\+\_\+icon}}
+\item 
+\mbox{\hyperlink{namespaceapp_a32ab50610df58ba90f40d85d72ba822d}{app.\+layout}}
+\item 
+\mbox{\hyperlink{namespaceapp_a0aa9707053e0082ace1eb37e3c5c5359}{app.\+page}} = st.\+sidebar.\+radio("{}Go to"{}, \mbox{[}"{}Browse Data"{}, "{}Run Analytics"{}, "{}Health / Debug"{}\mbox{]})
+\item 
+\mbox{\hyperlink{namespaceapp_a8723491d136286dbe8bae531f4ccebae}{app.\+ticker}} = st.\+sidebar.\+text\+\_\+input("{}Ticker (e.\+g., AAPL)"{}, value="{}AAPL"{}, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}sidebar\+\_\+ticker"{}).strip().upper()
+\item 
+\mbox{\hyperlink{namespaceapp_a54ccf261d199a2511eab430cace92a16}{app.\+start\+\_\+date}} = st.\+sidebar.\+date\+\_\+input("{}Start date"{}, value=date(2025, 1, 1), \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}sidebar\+\_\+start"{})
+\item 
+\mbox{\hyperlink{namespaceapp_aef2fa22ab834a420135968bfd0570901}{app.\+end\+\_\+date}} = st.\+sidebar.\+date\+\_\+input("{}End date"{}, value=date(2026, 2, 17), \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}sidebar\+\_\+end"{})
+\item 
+\mbox{\hyperlink{namespaceapp_ab6ba6b345907ce5454fe61a39fb92e59}{app.\+query}} = st.\+text\+\_\+input("{}Search companies (\mbox{\hyperlink{namespaceapp_a8723491d136286dbe8bae531f4ccebae}{ticker}} or name)"{}, value="{}"{}, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}search\+\_\+query"{}).strip()
+\item 
+\mbox{\hyperlink{namespaceapp_a469a2a726d946ac15bad00fb6036f4ea}{app.\+left}}
+\item 
+\mbox{\hyperlink{namespaceapp_a2654fe61890b34cbb8154752a7f123e6}{app.\+right}}
+\item 
+\mbox{\hyperlink{namespaceapp_a4ed05f03a8af2e90d30b706f84c84be4}{app.\+vertical\+\_\+alignment}}
+\item 
+\mbox{\hyperlink{namespaceapp_a1aca91a5db83331bd47605bd16b6c974}{app.\+do\+\_\+search}} = st.\+button("{}Search"{}, \mbox{\hyperlink{namespaceapp_a41e19bfa088c4003652e0d4a347c5d12}{type}}="{}primary"{}, disabled=(len(\mbox{\hyperlink{namespaceapp_ab6ba6b345907ce5454fe61a39fb92e59}{query}}) == 0), \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}search\+\_\+btn"{})
+\item 
+\mbox{\hyperlink{classapp_1_1_api_result}{Api\+Result}} \mbox{\hyperlink{namespaceapp_aa7bc325e05f4c2538de25bbf88a4b92f}{app.\+res}} = \mbox{\hyperlink{namespaceapp_ae350c4308889c8d25da2915b61bbc8da}{api\+\_\+request}}("{}GET"{}, "{}/companies"{}, params=\{"{}query"{}\+: \mbox{\hyperlink{namespaceapp_ab6ba6b345907ce5454fe61a39fb92e59}{query}}\})
+\item 
+\mbox{\hyperlink{classapp_1_1_api_result}{Api\+Result}} \mbox{\hyperlink{namespaceapp_a2ddf46ca95dc001be4d3b012e7aea04b}{app.\+items}} = res.\+data.\+get("{}items"{}, \mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{namespaceapp_a0c6ec6d110eec6a716a98ab68529c22c}{app.\+use\+\_\+container\+\_\+width}}
+\item 
+\mbox{\hyperlink{namespaceapp_a4f14203a53500e8593c3e2fec9ace1e8}{app.\+True}}
+\item 
+\mbox{\hyperlink{namespaceapp_a2b143d591741675b5585ceadbff76a6d}{app.\+hide\+\_\+index}}
+\item 
+\mbox{\hyperlink{classapp_1_1_api_result}{Api\+Result}} \mbox{\hyperlink{namespaceapp_a12591c0d46601dd43947363f08dd5815}{app.\+details}} = \mbox{\hyperlink{namespaceapp_ae350c4308889c8d25da2915b61bbc8da}{api\+\_\+request}}("{}GET"{}, f"{}/companies/\{\mbox{\hyperlink{namespaceapp_a8723491d136286dbe8bae531f4ccebae}{ticker}}\}"{})
+\item 
+\mbox{\hyperlink{namespaceapp_a450fc58a9866b3d73832ab40377c0b5c}{app.\+c1}}
+\item 
+\mbox{\hyperlink{namespaceapp_a5703148a7abdd437640cec462f5a9c15}{app.\+c2}}
+\item 
+\mbox{\hyperlink{namespaceapp_a4780b2a69f6bd9c96f5432171abbdae6}{app.\+c3}}
+\item 
+\mbox{\hyperlink{classapp_1_1_api_result}{Api\+Result}} \mbox{\hyperlink{namespaceapp_aeceecdac5bab73580eaa6183e6f892f0}{app.\+prices}}
+\item 
+\mbox{\hyperlink{classapp_1_1_api_result}{Api\+Result}} \mbox{\hyperlink{namespaceapp_a7d726c5652c758d3b49172abc2c58b2d}{app.\+rows}} = prices.\+data.\+get("{}rows"{}, \mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{namespaceapp_aa8d89b300f0f4ff82296af7598d207ff}{app.\+dfp}} = pd.\+Data\+Frame(\mbox{\hyperlink{namespaceapp_a7d726c5652c758d3b49172abc2c58b2d}{rows}})
+\item 
+\mbox{\hyperlink{namespaceapp_aed9590489516c13cffd4827d6df765ae}{app.\+errors}}
+\item 
+\mbox{\hyperlink{namespaceapp_a837829dda62f12cef2d21f66ecde5f26}{app.\+tab1}}
+\item 
+\mbox{\hyperlink{namespaceapp_ab72f29dede04fb9ab9d5d08f5f8faa49}{app.\+tab2}}
+\item 
+\mbox{\hyperlink{namespaceapp_a6cbefd4429bfc0cf4ef3aff2de075a0a}{app.\+tab3}}
+\item 
+\mbox{\hyperlink{namespaceapp_a7a411ea567ac1ca0c5c461278144a7e1}{app.\+col1}}
+\item 
+\mbox{\hyperlink{namespaceapp_a5a5fda4e66a5b10cce19391f477e1298}{app.\+col2}}
+\item 
+\mbox{\hyperlink{namespaceapp_a00fdfca3ee92225531a5d68e53bb1605}{app.\+company\+\_\+name}} = st.\+text\+\_\+input("{}Company Name"{}, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}create\+\_\+name"{})
+\item 
+\mbox{\hyperlink{namespaceapp_a31921411c4bcf77c7ba7894631b0ca73}{app.\+ticker\+\_\+input}} = st.\+text\+\_\+input("{}Ticker"{}, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}create\+\_\+ticker"{})
+\item 
+\mbox{\hyperlink{namespaceapp_ad83149a7aa8c09bbf7182da051c2820b}{app.\+sector}} = st.\+selectbox("{}Sector"{}, \mbox{[}"{}Technology"{}, "{}Finance"{}, "{}Healthcare"{}\mbox{]}, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}create\+\_\+sector"{})
+\item 
+\mbox{\hyperlink{namespaceapp_ae06b31afb34e4a3aea3fd9cfb6fcf163}{app.\+create\+\_\+date}} = st.\+date\+\_\+input("{}Date"{}, value=date(2026, 2, 17), \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}create\+\_\+date"{})
+\item 
+\mbox{\hyperlink{namespaceapp_a41e19bfa088c4003652e0d4a347c5d12}{app.\+type}}
+\item 
+\mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{app.\+key}}
+\item 
+dict \mbox{\hyperlink{namespaceapp_af6ca5586cde01b5ffc7d53a725772684}{app.\+payload}}
+\item 
+\mbox{\hyperlink{namespaceapp_ab5b53a847f8f20b26390faca3f413f73}{app.\+company\+\_\+id}} = st.\+number\+\_\+input("{}Stock ID to Update"{}, min\+\_\+value=1, step=1, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}update\+\_\+id"{})
+\item 
+\mbox{\hyperlink{namespaceapp_ad6cb6f347e4b598c148b35b360e87777}{app.\+new\+\_\+name}} = st.\+text\+\_\+input("{}New Company Name (optional)"{}, key="{}update\+\_\+name"{})
+\item 
+\mbox{\hyperlink{namespaceapp_a0022a8f3765b4fc1e995a6dece7ec34c}{app.\+new\+\_\+ticker}} = st.\+text\+\_\+input("{}New Ticker (optional)"{}, key="{}update\+\_\+ticker"{})
+\item 
+\mbox{\hyperlink{namespaceapp_aef8b472e3f3629fb1a5796fde79eda5f}{app.\+new\+\_\+sector}} = st.\+selectbox("{}New Sector (optional)"{}, \mbox{[}"{}"{}, "{}Technology"{}, "{}Finance"{}, "{}Healthcare"{}\mbox{]}, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}update\+\_\+sector"{})
+\item 
+\mbox{\hyperlink{namespaceapp_aa4be02261e968c8a21341bf031f5c4e9}{app.\+delete\+\_\+id}} = st.\+number\+\_\+input("{}Stock ID to Delete"{}, min\+\_\+value=1, step=1, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}delete\+\_\+id"{})
+\item 
+\mbox{\hyperlink{namespaceapp_a9b2e4677998282a4804a21f30f33a7c6}{app.\+iterations}} = st.\+slider("{}Iterations"{}, 1000, 50000, 10000)
+\item 
+\mbox{\hyperlink{classapp_1_1_api_result}{Api\+Result}} \mbox{\hyperlink{namespaceapp_a0c530330260b1fcbe2280dafd592871d}{app.\+vol\+\_\+res}} = \mbox{\hyperlink{namespaceapp_ae350c4308889c8d25da2915b61bbc8da}{api\+\_\+request}}("{}GET"{}, f"{}/analytics/volatility?\mbox{\hyperlink{namespaceapp_a8723491d136286dbe8bae531f4ccebae}{ticker}}=\{\mbox{\hyperlink{namespaceapp_a8723491d136286dbe8bae531f4ccebae}{ticker}}\}\&\mbox{\hyperlink{namespaceapp_a9b2e4677998282a4804a21f30f33a7c6}{iterations}}=\{\mbox{\hyperlink{namespaceapp_a9b2e4677998282a4804a21f30f33a7c6}{iterations}}\}"{})
+\item 
+\mbox{\hyperlink{classapp_1_1_api_result}{Api\+Result}} \mbox{\hyperlink{namespaceapp_a08b1cf70bd146c36cfad1832a0bd8f93}{app.\+vol\+\_\+data}} = vol\+\_\+res.\+data
+\item 
+\mbox{\hyperlink{namespaceapp_a483ec6c445cc39ec65172594a4a441b7}{app.\+analysis\+\_\+type}} = st.\+selectbox("{}Type"{}, \mbox{[}"{}returns"{}, "{}volatility"{}\mbox{]}, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}analysis\+\_\+type"{})
+\item 
+\mbox{\hyperlink{namespaceapp_a7cb7ae776115be503300fccc5973cd99}{app.\+window}} = st.\+number\+\_\+input("{}Window"{}, 10, 365, 30, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}analysis\+\_\+window"{})
+\item 
+\mbox{\hyperlink{namespaceapp_a228ba1d86e8c8ac6f575931eee303024}{app.\+confidence}} = st.\+slider("{}Confidence Level"{}, 0.\+90, 0.\+99, 0.\+95, 0.\+01)
+\item 
+\mbox{\hyperlink{namespaceapp_a6f9fb42fa1b7a5ae63ebd75aa0b75da3}{app.\+simulations}} = st.\+slider("{}Simulations"{}, 10000, 100000, 50000)
+\item 
+dict \mbox{\hyperlink{namespaceapp_ae7e480fef52b2936f40da2a54b0c4778}{app.\+var\+\_\+payload}}
+\item 
+\mbox{\hyperlink{namespaceapp_a6741c59d19870c5f024fd2337c49ce92}{app.\+col3}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Streamlit frontend for Financial Analytics API. 
+
+Provides user interface for\+:
+\begin{DoxyItemize}
+\item Browsing company data
+\item Running analytics
+\item Performing risk calculations
+\item Monitoring API health
+\end{DoxyItemize}
+
+Communicates with Fast\+API backend via REST APIs. 
+
+Definition in file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+

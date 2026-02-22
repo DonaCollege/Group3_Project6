@@ -1,0 +1,54 @@
+\doxysection{risk\+\_\+service.\+py}
+\hypertarget{risk__service_8py_source}{}\label{risk__service_8py_source}\index{risk\_service.py@{risk\_service.py}}
+\mbox{\hyperlink{risk__service_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00001}\mbox{\hyperlink{namespaceservices_1_1risk__service}{00001}}\ \textcolor{comment}{\#\ import\ random}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00002}00002\ \textcolor{comment}{\#\ from\ backend.schemas.risk\ import\ VaRRequest}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00004}00004\ \textcolor{comment}{\#\ def\ calculate\_var(request:\ VaRRequest):}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00005}00005\ \textcolor{comment}{\#\ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00006}00006\ \textcolor{comment}{\#\ \ \ \ \ TODO\ (Nikhil):}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ -\/\ Replace\ random\ simulation\ with\ DB-\/based\ returns}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00008}00008\ \textcolor{comment}{\#\ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00009}00009\ \textcolor{comment}{\#\ \ \ \ \ simulated\_losses\ =\ [}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00010}00010\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ random.gauss(0,\ 1)\ for\ \_\ in\ range(request.simulations)}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00011}00011\ \textcolor{comment}{\#\ \ \ \ \ ]}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00012}00012\ \textcolor{comment}{\#\ \ \ \ \ simulated\_losses.sort()}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00013}00013\ \textcolor{comment}{\#\ \ \ \ \ index\ =\ int((1\ -\/\ request.confidence)\ *\ len(simulated\_losses))}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00014}00014\ \textcolor{comment}{\#\ \ \ \ \ return\ \{}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00015}00015\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ "{}ticker"{}:\ request.ticker,}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00016}00016\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ "{}confidence"{}:\ request.confidence,}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00017}00017\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ "{}value\_at\_risk"{}:\ round(simulated\_losses[index],\ 4)}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00018}00018\ \textcolor{comment}{\#\ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00020}00020\ \textcolor{comment}{\#\#}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00021}00021\ \textcolor{comment}{\#\ @file\ analytics\_service.py}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00022}00022\ \textcolor{comment}{\#\ @brief\ Business\ logic\ for\ analytics\ computations.}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00023}00023\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00024}00024\ \textcolor{comment}{\#\ @details}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00025}00025\ \textcolor{comment}{\#\ Contains\ CPU-\/heavy\ functions\ used\ to\ simulate\ analytical\ workloads}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00026}00026\ \textcolor{comment}{\#\ for\ performance\ and\ stress\ testing\ experiments.}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00027}00027\ \textcolor{comment}{\#\#}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00028}00028\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacedata_1_1database}{data.database}}\ \textcolor{keyword}{import}\ Database}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00029}00029\ \textcolor{keyword}{import}\ numpy\ \textcolor{keyword}{as}\ np}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00030}00030\ \textcolor{keyword}{from}\ backend.schemas.risk\ \textcolor{keyword}{import}\ VaRRequest}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00032}\mbox{\hyperlink{namespaceservices_1_1risk__service_a610a2f930472546fd2e2c27ce74a0a51}{00032}}\ db\ =\ \mbox{\hyperlink{classdata_1_1database_1_1_database}{Database}}()}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00034}\mbox{\hyperlink{namespaceservices_1_1risk__service_a6cbc7148043bf3067eb983c2ee6d4e83}{00034}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceservices_1_1risk__service_a6cbc7148043bf3067eb983c2ee6d4e83}{calculate\_var}}(request:\ VaRRequest):}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00035}00035\ \ \ \ \ rows\ =\ db.get\_stocks\_by\_company(request.ticker,\ 252)}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00036}00036\ \ \ \ \ closes\ =\ [row[6]\ \textcolor{keywordflow}{for}\ row\ \textcolor{keywordflow}{in}\ rows]}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00037}00037\ \ \ \ \ \textcolor{keywordflow}{if}\ len(closes)\ <\ 10:}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\textcolor{stringliteral}{"{}error"{}}:\ \textcolor{stringliteral}{"{}Insufficient\ data"{}}\}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00039}00039\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00040}00040\ \ \ \ \ returns\ =\ np.diff(np.log(closes))\ \ \textcolor{comment}{\#\ Log\ returns}}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00041}00041\ \ \ \ \ var\ =\ np.percentile(returns,\ (1\ -\/\ request.confidence)\ *\ 100)}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00042}00042\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00043}00043\ \ \ \ \ \textcolor{keywordflow}{return}\ \{}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00044}00044\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}ticker"{}}:\ request.ticker,}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00045}00045\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}confidence"{}}:\ request.confidence,}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}value\_at\_risk"{}}:\ round(var,\ 4),}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00047}00047\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}data\_points"{}}:\ len(returns)}
+\DoxyCodeLine{\Hypertarget{risk__service_8py_source_l00048}00048\ \ \ \ \ \}}
+
+\end{DoxyCode}

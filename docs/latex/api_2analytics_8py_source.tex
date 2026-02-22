@@ -1,0 +1,81 @@
+\doxysection{api/analytics.py}
+\hypertarget{api_2analytics_8py_source}{}\label{api_2analytics_8py_source}\index{analytics.py@{analytics.py}}
+\mbox{\hyperlink{api_2analytics_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00001}\mbox{\hyperlink{namespaceanalytics}{00001}}\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00002}00002\ \textcolor{stringliteral}{Analytics\ API\ Routes}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00003}00003\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00004}00004\ \textcolor{stringliteral}{Architecture\ Overview:}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00005}00005\ \textcolor{stringliteral}{-\/\ This\ module\ defines\ HTTP\ endpoints\ related\ to\ financial\ analytics.}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00006}00006\ \textcolor{stringliteral}{-\/\ It\ represents\ the\ API\ (presentation)\ layer\ in\ a\ layered\ architecture.}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00007}00007\ \textcolor{stringliteral}{-\/\ No\ heavy\ business\ logic\ is\ implemented\ directly\ in\ the\ routes.}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00008}00008\ \textcolor{stringliteral}{-\/\ All\ computational\ work\ is\ delegated\ to\ the\ service\ layer.}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00009}00009\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00010}00010\ \textcolor{stringliteral}{Design\ Rationale:}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00011}00011\ \textcolor{stringliteral}{-\/\ Endpoints\ in\ this\ file\ are\ intentionally\ designed\ to\ be\ CPU-\/intensive.}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00012}00012\ \textcolor{stringliteral}{-\/\ These\ routes\ are\ primary\ targets\ for\ performance\ and\ load\ testing\ using\ JMeter.}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00013}00013\ \textcolor{stringliteral}{-\/\ Query\ parameters\ are\ used\ to\ dynamically\ control\ computation\ intensity.}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00014}00014\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00015}00015\ \textcolor{stringliteral}{Team\ Notes:}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00016}00016\ \textcolor{stringliteral}{-\/\ Service-\/layer\ logic\ may\ be\ optimized\ or\ replaced\ later\ without\ changing\ routes.}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00017}00017\ \textcolor{stringliteral}{-\/\ Database-\/backed\ implementations\ will\ be\ introduced\ in\ the\ service\ layer.}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00018}00018\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00020}00020\ \textcolor{keyword}{from}\ fastapi\ \textcolor{keyword}{import}\ APIRouter}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00021}00021\ \textcolor{keyword}{from}\ backend.schemas.analytics\ \textcolor{keyword}{import}\ AnalyticsRequest}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00022}00022\ \textcolor{keyword}{from}\ backend.services.analytics\_service\ \textcolor{keyword}{import}\ (}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00023}00023\ \ \ \ \ run\_cpu\_heavy\_analysis,}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00024}00024\ \ \ \ \ compute\_volatility}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00025}00025\ )}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00027}00027\ \textcolor{comment}{\#\ Router\ for\ all\ analytics-\/related\ endpoints}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00028}00028\ \textcolor{comment}{\#\ Prefix\ ensures\ logical\ grouping\ and\ RESTful\ structure}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00029}\mbox{\hyperlink{namespaceanalytics_ad672b6d6c3f2d0537d4595a6f2b02a46}{00029}}\ router\ =\ APIRouter(prefix=\textcolor{stringliteral}{"{}/analytics"{}},\ tags=[\textcolor{stringliteral}{"{}Analytics"{}}])}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00032}00032\ \textcolor{preprocessor}{@router.get}(}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00033}00033\ \ \ \ \ \textcolor{stringliteral}{"{}/volatility"{}},}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00034}00034\ \ \ \ \ summary=\textcolor{stringliteral}{"{}Forecast\ volatility\ for\ a\ company"{}},}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00035}00035\ \ \ \ \ description=(}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}CPU-\/intensive\ endpoint\ designed\ for\ performance\ testing.\ "{}}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00037}00037\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Returns\ a\ simulated\ volatility\ metric\ based\ on\ the\ provided\ parameters.\ "{}}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}The\ 'iterations'\ parameter\ intentionally\ increases\ computational\ load\ "{}}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}to\ simulate\ real-\/world\ analytical\ workloads."{}}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00040}00040\ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00041}00041\ )}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00042}\mbox{\hyperlink{namespaceanalytics_acdaa04782d463e701f401ffa2e10f3d3}{00042}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceanalytics_acdaa04782d463e701f401ffa2e10f3d3}{get\_volatility}}(}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00043}00043\ \ \ \ \ ticker:\ str,}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00044}00044\ \ \ \ \ period:\ str\ =\ \textcolor{stringliteral}{"{}1y"{}},}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00045}00045\ \ \ \ \ iterations:\ int\ =\ 10000}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00046}00046\ ):}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00047}00047\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00048}00048\ \textcolor{stringliteral}{\ \ \ \ Architectural\ Notes:}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00049}00049\ \textcolor{stringliteral}{\ \ \ \ -\/\ This\ endpoint\ demonstrates\ a\ READ-\/only\ analytical\ operation\ (HTTP\ GET).}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00050}00050\ \textcolor{stringliteral}{\ \ \ \ -\/\ The\ computation\ is\ intentionally\ unoptimized\ in\ the\ initial\ version.}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00051}00051\ \textcolor{stringliteral}{\ \ \ \ -\/\ Used\ as\ a\ baseline\ endpoint\ for\ stress\ testing\ and\ performance\ comparison.}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00052}00052\ \textcolor{stringliteral}{\ \ \ \ -\/\ Future\ versions\ may\ replace\ in-\/memory\ computation\ with\ database\ aggregation.}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00053}00053\ \textcolor{stringliteral}{}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00054}00054\ \textcolor{stringliteral}{\ \ \ \ Performance\ Notes:}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00055}00055\ \textcolor{stringliteral}{\ \ \ \ -\/\ Increasing\ 'iterations'\ increases\ CPU\ utilization.}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00056}00056\ \textcolor{stringliteral}{\ \ \ \ -\/\ Designed\ to\ degrade\ predictably\ under\ load\ for\ JMeter\ analysis.}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00057}00057\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00058}00058\ \ \ \ \ \textcolor{keywordflow}{return}\ compute\_volatility(ticker,\ period,\ iterations)}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00061}00061\ \textcolor{preprocessor}{@router.post("{}/\{ticker\}"{})}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00062}\mbox{\hyperlink{namespaceanalytics_a26aa3b33b1ad2fcc0321c54d355e5652}{00062}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceanalytics_a26aa3b33b1ad2fcc0321c54d355e5652}{run\_analytics\_for\_ticker}}(ticker:\ str,\ payload:\ dict):}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00063}00063\ \ \ \ \ window\ =\ payload.get(\textcolor{stringliteral}{"{}params"{}},\ \{\}).get(\textcolor{stringliteral}{"{}window"{}},\ 100)}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00064}00064\ \ \ \ \ result\ =\ run\_cpu\_heavy\_analysis(window)}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00065}00065\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00066}00066\ \ \ \ \ \textcolor{keywordflow}{return}\ \{}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}summary"{}}:\ \{}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}ticker"{}}:\ ticker,}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}analysis\_type"{}}:\ payload.get(\textcolor{stringliteral}{"{}type"{}}),}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}window"{}}:\ window}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00071}00071\ \ \ \ \ \ \ \ \ \},}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00072}00072\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}metrics"{}}:\ result,}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00073}00073\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}rows"{}}:\ [],\ \ \textcolor{comment}{\#\ Add\ real\ rows\ later}}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}series"{}}:\ []}
+\DoxyCodeLine{\Hypertarget{api_2analytics_8py_source_l00075}00075\ \ \ \ \ \}}
+
+\end{DoxyCode}

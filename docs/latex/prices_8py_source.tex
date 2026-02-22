@@ -1,0 +1,46 @@
+\doxysection{prices.\+py}
+\hypertarget{prices_8py_source}{}\label{prices_8py_source}\index{prices.py@{prices.py}}
+\mbox{\hyperlink{prices_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00001}\mbox{\hyperlink{namespaceprices}{00001}}\ \textcolor{comment}{\#\ from\ fastapi\ import\ APIRouter}}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00002}00002\ \textcolor{comment}{\#\ from\ data.database\ import\ Database}}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00004}00004\ \textcolor{comment}{\#\ router\ =\ APIRouter(prefix="{}/prices"{},\ tags=["{}Prices"{}])}}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00006}00006\ \textcolor{comment}{\#\ db\ =\ Database()}}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00008}00008\ \textcolor{comment}{\#\ @router.get("{}/\{ticker\}"{})}}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00009}00009\ \textcolor{comment}{\#\ def\ get\_prices(ticker:\ str,\ start:\ str\ =\ None,\ end:\ str\ =\ None):}}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00010}00010\ \textcolor{comment}{\#\ \ \ \ \ rows\ =\ db.get\_stocks\_by\_company(ticker)}}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00012}00012\ \textcolor{comment}{\#\ \ \ \ \ data\ =\ [}}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00013}00013\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00014}00014\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ "{}date"{}:\ r[2],}}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00015}00015\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ "{}close"{}:\ r[6],}}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00016}00016\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00017}00017\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ for\ r\ in\ rows}}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00018}00018\ \textcolor{comment}{\#\ \ \ \ \ ]}}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00020}00020\ \textcolor{comment}{\#\ \ \ \ \ return\ \{"{}rows"{}:\ data\}}}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00023}00023\ \textcolor{keyword}{from}\ fastapi\ \textcolor{keyword}{import}\ APIRouter}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00024}00024\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacedata_1_1database}{data.database}}\ \textcolor{keyword}{import}\ Database}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00026}\mbox{\hyperlink{namespaceprices_a92f4b9eb530f1cac18e330e7cb36c74e}{00026}}\ router\ =\ APIRouter(prefix=\textcolor{stringliteral}{"{}/prices"{}},\ tags=[\textcolor{stringliteral}{"{}Prices"{}}])}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00027}\mbox{\hyperlink{namespaceprices_a410bf0256e1f72ceebc4cfda25e1f4a4}{00027}}\ db\ =\ \mbox{\hyperlink{classdata_1_1database_1_1_database}{Database}}()}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00029}00029\ \textcolor{preprocessor}{@router.get("{}/\{ticker\}"{})}}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00030}\mbox{\hyperlink{namespaceprices_a91b82dea51f963e0a462da646a5ea864}{00030}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceprices_a91b82dea51f963e0a462da646a5ea864}{get\_prices}}(ticker:\ str,\ start:\ str\ =\ \textcolor{keywordtype}{None},\ end:\ str\ =\ \textcolor{keywordtype}{None}):}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00031}00031\ \ \ \ \ rows\ =\ db.get\_stocks\_by\_company(ticker)}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00032}00032\ \ \ \ \ data\ =\ [}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00033}00033\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}date"{}}:\ r[2],}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}close"{}}:\ r[6],}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00036}00036\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00037}00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ r\ \textcolor{keywordflow}{in}\ rows}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keywordflow}{not}\ start\ \textcolor{keywordflow}{or}\ r[2]\ >=\ start)\ \textcolor{keywordflow}{and}\ (\textcolor{keywordflow}{not}\ end\ \textcolor{keywordflow}{or}\ r[2]\ <=\ end)}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00039}00039\ \ \ \ \ ]}
+\DoxyCodeLine{\Hypertarget{prices_8py_source_l00040}00040\ \ \ \ \ \textcolor{keywordflow}{return}\ \{\textcolor{stringliteral}{"{}rows"{}}:\ data\}}
+
+\end{DoxyCode}

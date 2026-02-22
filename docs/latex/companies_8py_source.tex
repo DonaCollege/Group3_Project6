@@ -1,0 +1,159 @@
+\doxysection{companies.\+py}
+\hypertarget{companies_8py_source}{}\label{companies_8py_source}\index{companies.py@{companies.py}}
+\mbox{\hyperlink{companies_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00001}\mbox{\hyperlink{namespacecompanies}{00001}}\ \textcolor{comment}{\#\ from\ fastapi\ import\ APIRouter,\ Query}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00002}00002\ \textcolor{comment}{\#\ from\ data.database\ import\ Database}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00004}00004\ \textcolor{comment}{\#\ router\ =\ APIRouter(prefix="{}/companies"{},\ tags=["{}Companies"{}])}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00006}00006\ \textcolor{comment}{\#\ db\ =\ Database()}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00009}00009\ \textcolor{comment}{\#\ @router.get("{}/"{})}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00010}00010\ \textcolor{comment}{\#\ def\ search\_companies(query:\ str\ =\ Query(default="{}"{}),\ limit:\ int\ =\ 20):}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00011}00011\ \textcolor{comment}{\#\ \ \ \ \ rows\ =\ db.get\_all\_stocks(limit)}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00013}00013\ \textcolor{comment}{\#\ \ \ \ \ results\ =\ []}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00014}00014\ \textcolor{comment}{\#\ \ \ \ \ for\ row\ in\ rows:}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00015}00015\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ if\ query.lower()\ in\ row[1].lower():}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00016}00016\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ results.append(\{}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00017}00017\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}stockId"{}:\ row[0],}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00018}00018\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}companyName"{}:\ row[1],}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00019}00019\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}date"{}:\ row[2],}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00020}00020\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}open"{}:\ row[3],}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00021}00021\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}high"{}:\ row[4],}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00022}00022\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}low"{}:\ row[5],}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00023}00023\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}close"{}:\ row[6],}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00024}00024\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}volume"{}:\ row[7],}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00025}00025\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \})}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00027}00027\ \textcolor{comment}{\#\ \ \ \ \ return\ \{"{}items"{}:\ results\}}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00030}00030\ \textcolor{comment}{\#\ @router.get("{}/\{ticker\}"{})}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00031}00031\ \textcolor{comment}{\#\ def\ get\_company\_details(ticker:\ str):}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00032}00032\ \textcolor{comment}{\#\ \ \ \ \ rows\ =\ db.get\_stocks\_by\_company(ticker)}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00034}00034\ \textcolor{comment}{\#\ \ \ \ \ if\ not\ rows:}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00035}00035\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ return\ \{"{}detail"{}:\ "{}Company\ not\ found"{}\}}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00037}00037\ \textcolor{comment}{\#\ \ \ \ \ return\ \{}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00038}00038\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ "{}ticker"{}:\ ticker,}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00039}00039\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ "{}name"{}:\ ticker,}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00040}00040\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ "{}sector"{}:\ "{}Technology"{},}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00041}00041\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ "{}rows"{}:\ [}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00042}00042\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00043}00043\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}date"{}:\ r[2],}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00044}00044\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}open"{}:\ r[3],}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00045}00045\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}high"{}:\ r[4],}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00046}00046\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}low"{}:\ r[5],}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00047}00047\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}close"{}:\ r[6],}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00048}00048\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ "{}volume"{}:\ r[7],}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00049}00049\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00050}00050\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ \ \ \ \ for\ r\ in\ rows}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00051}00051\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ ]}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00052}00052\ \textcolor{comment}{\#\ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00054}00054\ \textcolor{comment}{\#\#}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00055}00055\ \textcolor{comment}{\#\ @file\ companies.py}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00056}00056\ \textcolor{comment}{\#\ @brief\ Company-\/related\ REST\ endpoints.}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00057}00057\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00058}00058\ \textcolor{comment}{\#\ @details}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00059}00059\ \textcolor{comment}{\#\ Provides\ search\ and\ retrieval\ functionality\ for\ stock/company\ data}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00060}00060\ \textcolor{comment}{\#\ stored\ in\ the\ SQLite\ database.\ Supports\ GET\ operations\ for\ browsing}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00061}00061\ \textcolor{comment}{\#\ company\ data\ and\ retrieving\ historical\ stock\ prices.}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00062}00062\ \textcolor{comment}{\#\#}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00063}00063\ \textcolor{keyword}{from}\ fastapi\ \textcolor{keyword}{import}\ APIRouter,\ Query,\ HTTPException}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00064}00064\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacedata_1_1database}{data.database}}\ \textcolor{keyword}{import}\ Database}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00065}00065\ \textcolor{keyword}{from}\ pydantic\ \textcolor{keyword}{import}\ BaseModel}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00067}\mbox{\hyperlink{namespacecompanies_aa04dd04796c6a8b6b2bbc1b86a023830}{00067}}\ router\ =\ APIRouter(prefix=\textcolor{stringliteral}{"{}/companies"{}},\ tags=[\textcolor{stringliteral}{"{}Companies"{}}])}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00068}\mbox{\hyperlink{namespacecompanies_a700d0192ca1963edf47990c5122641ae}{00068}}\ db\ =\ \mbox{\hyperlink{classdata_1_1database_1_1_database}{Database}}()}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00070}\mbox{\hyperlink{classcompanies_1_1_company_create}{00070}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcompanies_1_1_company_create}{CompanyCreate}}(BaseModel):}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00071}\mbox{\hyperlink{classcompanies_1_1_company_create_a0ca33ceea3e174be50ea9a0c2ffbbc19}{00071}}\ \ \ \ \ companyName:\ str}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00072}\mbox{\hyperlink{classcompanies_1_1_company_create_a35da71cbfe18dc540ce1efb7c29f6bca}{00072}}\ \ \ \ \ ticker:\ str}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00073}\mbox{\hyperlink{classcompanies_1_1_company_create_a17da51ce37a43246dd1bf0413c148c78}{00073}}\ \ \ \ \ sector:\ str}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00075}\mbox{\hyperlink{classcompanies_1_1_company_update}{00075}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classcompanies_1_1_company_update}{CompanyUpdate}}(BaseModel):}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00076}\mbox{\hyperlink{classcompanies_1_1_company_update_a076f3104d8595385565ae6fd5b1b85bc}{00076}}\ \ \ \ \ companyName:\ str\ |\ \textcolor{keywordtype}{None}\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00077}\mbox{\hyperlink{classcompanies_1_1_company_update_aba2749a718714f21cef3a74fa7ea1049}{00077}}\ \ \ \ \ ticker:\ str\ |\ \textcolor{keywordtype}{None}\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00078}\mbox{\hyperlink{classcompanies_1_1_company_update_ad04fba89bea83af4f9b77c2b50d79cf9}{00078}}\ \ \ \ \ sector:\ str\ |\ \textcolor{keywordtype}{None}\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00080}00080\ \textcolor{preprocessor}{@router.get("{}/"{})}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00081}\mbox{\hyperlink{namespacecompanies_a549d9ff3fd0b438147eee2a9e8f3a56f}{00081}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacecompanies_a549d9ff3fd0b438147eee2a9e8f3a56f}{search\_companies}}(query:\ str\ =\ Query(default=\textcolor{stringliteral}{"{}"{}}),\ limit:\ int\ =\ 20):}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00082}00082\ \ \ \ \ \textcolor{comment}{\#\#}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00083}00083\ \textcolor{comment}{\ \ \ \ \#\ @brief\ Search\ companies\ by\ ticker\ or\ name.}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00084}00084\ \textcolor{comment}{\ \ \ \ \#}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00085}00085\ \textcolor{comment}{\ \ \ \ \#\ @param\ query\ Search\ string\ for\ filtering\ company\ names.}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00086}00086\ \textcolor{comment}{\ \ \ \ \#\ @param\ limit\ Maximum\ number\ of\ records\ to\ return.}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00087}00087\ \textcolor{comment}{\ \ \ \ \#\ @return\ JSON\ list\ of\ matching\ companies.}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00088}00088\ \textcolor{comment}{\ \ \ \ \#\#}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00089}00089\ \ \ \ \ rows\ =\ db.get\_all\_stocks(limit)}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00090}00090\ \ \ \ \ results\ =\ []}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00091}00091\ \ \ \ \ \textcolor{keywordflow}{for}\ row\ \textcolor{keywordflow}{in}\ rows:}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00092}00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ query.lower()\ \textcolor{keywordflow}{in}\ row[1].lower():}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ results.append(\{}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}stockId"{}}:\ row[0],}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}companyName"{}}:\ row[1],}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}ticker"{}}:\ row[1][:4],\ \ \textcolor{comment}{\#\ Simplified\ ticker}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}date"{}}:\ row[2],}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}open"{}}:\ row[3],}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}high"{}}:\ row[4],}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}low"{}}:\ row[5],}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}close"{}}:\ row[6],}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}volume"{}}:\ row[7],}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00104}00104\ \ \ \ \ \textcolor{keywordflow}{return}\ \{\textcolor{stringliteral}{"{}items"{}}:\ results\}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00106}00106\ \textcolor{preprocessor}{@router.get("{}/\{ticker\}"{})}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00107}\mbox{\hyperlink{namespacecompanies_aabc91e7c4ff0ba699e3208393e07fd43}{00107}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacecompanies_aabc91e7c4ff0ba699e3208393e07fd43}{get\_company\_details}}(ticker:\ str):}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00108}00108\ \ \ \ \ rows\ =\ db.get\_stocks\_by\_company(ticker)}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00109}00109\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ rows:}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00110}00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ HTTPException(status\_code=404,\ detail=\textcolor{stringliteral}{"{}Company\ not\ found"{}})}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00111}00111\ \ \ \ \ \textcolor{keywordflow}{return}\ \{}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00112}00112\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}ticker"{}}:\ ticker,}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}name"{}}:\ ticker,}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00114}00114\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}sector"{}}:\ \textcolor{stringliteral}{"{}Technology"{}},\ \ \textcolor{comment}{\#\ From\ schema}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}rows"{}}:\ [}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}date"{}}:\ r[2],}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}open"{}}:\ r[3],}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}high"{}}:\ r[4],}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}low"{}}:\ r[5],}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}close"{}}:\ r[6],}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}volume"{}}:\ r[7],}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ r\ \textcolor{keywordflow}{in}\ rows}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00125}00125\ \ \ \ \ \ \ \ \ ]}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00126}00126\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00128}00128\ \textcolor{preprocessor}{@router.post("{}/"{},\ status\_code=201)}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00129}\mbox{\hyperlink{namespacecompanies_a5df50e224f3b0dc568ee86953bc7fcc4}{00129}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacecompanies_a5df50e224f3b0dc568ee86953bc7fcc4}{create\_company}}(payload:\ dict):\ \ \textcolor{comment}{\#\ ←\ Changed\ to\ dict,\ not\ Pydantic}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00130}00130\ \ \ \ \ db.insert\_stock(\{}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00131}00131\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}companyName"{}}:\ payload.get(\textcolor{stringliteral}{"{}companyName"{}},\ \textcolor{stringliteral}{"{}Unknown"{}}),}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00132}00132\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}date"{}}:\ \textcolor{stringliteral}{"{}2026-\/02-\/17"{}},}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00133}00133\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}open"{}}:\ 100.0,}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00134}00134\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}high"{}}:\ 105.0,}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00135}00135\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}low"{}}:\ 95.0,}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00136}00136\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}close"{}}:\ payload.get(\textcolor{stringliteral}{"{}close"{}},\ 102.0),}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00137}00137\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}volume"{}}:\ 1000000}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00138}00138\ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00139}00139\ \ \ \ \ \textcolor{keywordflow}{return}\ \{\textcolor{stringliteral}{"{}message"{}}:\ \textcolor{stringliteral}{"{}Company\ created"{}}\}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00142}00142\ \textcolor{preprocessor}{@router.put("{}/\{stock\_id\}"{})}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00143}\mbox{\hyperlink{namespacecompanies_ac608b7c6cd256cd6f72f4b9ad4c7894e}{00143}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacecompanies_ac608b7c6cd256cd6f72f4b9ad4c7894e}{update\_company}}(stock\_id:\ int,\ update\_data:\ CompanyUpdate):}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00144}00144\ \ \ \ \ \textcolor{comment}{\#\ Simple\ update\ (expand\ as\ needed)}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00145}00145\ \ \ \ \ rows\ =\ db.get\_all\_stocks()}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00146}00146\ \ \ \ \ \textcolor{keywordflow}{if}\ stock\_id\ >=\ len(rows):}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00147}00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{raise}\ HTTPException(status\_code=404,\ detail=\textcolor{stringliteral}{"{}Stock\ not\ found"{}})}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00148}00148\ \ \ \ \ \textcolor{keywordflow}{return}\ \{\textcolor{stringliteral}{"{}message"{}}:\ f\textcolor{stringliteral}{"{}Updated\ stock\ \{stock\_id\}"{}},\ \textcolor{stringliteral}{"{}data"{}}:\ update\_data\}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00149}00149\ }
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00150}00150\ \textcolor{preprocessor}{@router.delete("{}/\{stock\_id\}"{})}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00151}\mbox{\hyperlink{namespacecompanies_a847e5de086b6f818c2f4b1263ec734e6}{00151}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacecompanies_a847e5de086b6f818c2f4b1263ec734e6}{delete\_company}}(stock\_id:\ int):}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00152}00152\ \ \ \ \ \textcolor{comment}{\#\ Note:\ SQLite\ DELETE\ needs\ explicit\ implementation\ in\ Database\ class}}
+\DoxyCodeLine{\Hypertarget{companies_8py_source_l00153}00153\ \ \ \ \ \textcolor{keywordflow}{return}\ \{\textcolor{stringliteral}{"{}message"{}}:\ f\textcolor{stringliteral}{"{}Deleted\ stock\ \{stock\_id\}"{}}\}}
+
+\end{DoxyCode}

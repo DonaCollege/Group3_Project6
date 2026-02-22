@@ -1,0 +1,80 @@
+\doxysection{analytics Namespace Reference}
+\hypertarget{namespaceanalytics}{}\label{namespaceanalytics}\index{analytics@{analytics}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceanalytics_acdaa04782d463e701f401ffa2e10f3d3}{get\+\_\+volatility}} (str ticker, str period="{}1y"{}, int iterations=10000)
+\item 
+\mbox{\hyperlink{namespaceanalytics_a26aa3b33b1ad2fcc0321c54d355e5652}{run\+\_\+analytics\+\_\+for\+\_\+ticker}} (str ticker, dict payload)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceanalytics_ad672b6d6c3f2d0537d4595a6f2b02a46}{router}} = APIRouter(prefix="{}/analytics"{}, tags=\mbox{[}"{}Analytics"{}\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Analytics API Routes
+
+Architecture Overview:
+- This module defines HTTP endpoints related to financial analytics.
+- It represents the API (presentation) layer in a layered architecture.
+- No heavy business logic is implemented directly in the routes.
+- All computational work is delegated to the service layer.
+
+Design Rationale:
+- Endpoints in this file are intentionally designed to be CPU-intensive.
+- These routes are primary targets for performance and load testing using JMeter.
+- Query parameters are used to dynamically control computation intensity.
+
+Team Notes:
+- Service-layer logic may be optimized or replaced later without changing routes.
+- Database-backed implementations will be introduced in the service layer.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceanalytics_acdaa04782d463e701f401ffa2e10f3d3}\label{namespaceanalytics_acdaa04782d463e701f401ffa2e10f3d3} 
+\index{analytics@{analytics}!get\_volatility@{get\_volatility}}
+\index{get\_volatility@{get\_volatility}!analytics@{analytics}}
+\doxysubsubsection{\texorpdfstring{get\_volatility()}{get\_volatility()}}
+{\footnotesize\ttfamily analytics.\+get\+\_\+volatility (\begin{DoxyParamCaption}\item[{str}]{ticker,  }\item[{str }]{period = {\ttfamily "{}1y"{}},  }\item[{int }]{iterations = {\ttfamily 10000} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Architectural Notes:
+- This endpoint demonstrates a READ-only analytical operation (HTTP GET).
+- The computation is intentionally unoptimized in the initial version.
+- Used as a baseline endpoint for stress testing and performance comparison.
+- Future versions may replace in-memory computation with database aggregation.
+
+Performance Notes:
+- Increasing 'iterations' increases CPU utilization.
+- Designed to degrade predictably under load for JMeter analysis.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{api_2analytics_8py_source_l00042}{42}} of file \mbox{\hyperlink{api_2analytics_8py_source}{api/analytics.\+py}}.
+
+\Hypertarget{namespaceanalytics_a26aa3b33b1ad2fcc0321c54d355e5652}\label{namespaceanalytics_a26aa3b33b1ad2fcc0321c54d355e5652} 
+\index{analytics@{analytics}!run\_analytics\_for\_ticker@{run\_analytics\_for\_ticker}}
+\index{run\_analytics\_for\_ticker@{run\_analytics\_for\_ticker}!analytics@{analytics}}
+\doxysubsubsection{\texorpdfstring{run\_analytics\_for\_ticker()}{run\_analytics\_for\_ticker()}}
+{\footnotesize\ttfamily analytics.\+run\+\_\+analytics\+\_\+for\+\_\+ticker (\begin{DoxyParamCaption}\item[{str}]{ticker,  }\item[{dict}]{payload }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{api_2analytics_8py_source_l00062}{62}} of file \mbox{\hyperlink{api_2analytics_8py_source}{api/analytics.\+py}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespaceanalytics_ad672b6d6c3f2d0537d4595a6f2b02a46}\label{namespaceanalytics_ad672b6d6c3f2d0537d4595a6f2b02a46} 
+\index{analytics@{analytics}!router@{router}}
+\index{router@{router}!analytics@{analytics}}
+\doxysubsubsection{\texorpdfstring{router}{router}}
+{\footnotesize\ttfamily analytics.\+router = APIRouter(prefix="{}/analytics"{}, tags=\mbox{[}"{}Analytics"{}\mbox{]})}
+
+
+
+Definition at line \mbox{\hyperlink{api_2analytics_8py_source_l00029}{29}} of file \mbox{\hyperlink{api_2analytics_8py_source}{api/analytics.\+py}}.
+

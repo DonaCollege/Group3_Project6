@@ -1,0 +1,30 @@
+\doxysection{yfinance.\+py}
+\hypertarget{yfinance_8py_source}{}\label{yfinance_8py_source}\index{yfinance.py@{yfinance.py}}
+\mbox{\hyperlink{yfinance_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{yfinance_8py_source_l00001}\mbox{\hyperlink{namespacedata_1_1yfinance}{00001}}\ \textcolor{keyword}{import}\ yfinance\ \textcolor{keyword}{as}\ yf}
+\DoxyCodeLine{\Hypertarget{yfinance_8py_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{yfinance_8py_source_l00003}\mbox{\hyperlink{namespacedata_1_1yfinance_ad3b0cf68d48fbb8a7df6e28e2e8a0fe1}{00003}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedata_1_1yfinance_ad3b0cf68d48fbb8a7df6e28e2e8a0fe1}{fetch\_stock\_data}}(symbol:\ str,\ period=\textcolor{stringliteral}{"{}1y"{}},\ interval=\textcolor{stringliteral}{"{}1d"{}}):}
+\DoxyCodeLine{\Hypertarget{yfinance_8py_source_l00004}00004\ \ \ \ \ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{yfinance_8py_source_l00005}00005\ \textcolor{stringliteral}{\ \ \ \ Fetch\ real\ stock\ data\ from\ Yahoo\ Finance\ using\ yfinance}}
+\DoxyCodeLine{\Hypertarget{yfinance_8py_source_l00006}00006\ \textcolor{stringliteral}{\ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{yfinance_8py_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{yfinance_8py_source_l00008}00008\ \ \ \ \ ticker\ =\ yf.Ticker(symbol)}
+\DoxyCodeLine{\Hypertarget{yfinance_8py_source_l00009}00009\ \ \ \ \ hist\ =\ ticker.history(period=period,\ interval=interval)}
+\DoxyCodeLine{\Hypertarget{yfinance_8py_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{yfinance_8py_source_l00011}00011\ \ \ \ \ data\ =\ []}
+\DoxyCodeLine{\Hypertarget{yfinance_8py_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{yfinance_8py_source_l00013}00013\ \ \ \ \ \textcolor{keywordflow}{for}\ date,\ row\ \textcolor{keywordflow}{in}\ hist.iterrows():}
+\DoxyCodeLine{\Hypertarget{yfinance_8py_source_l00014}00014\ \ \ \ \ \ \ \ \ data.append(\{}
+\DoxyCodeLine{\Hypertarget{yfinance_8py_source_l00015}00015\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}companyName"{}}:\ symbol,}
+\DoxyCodeLine{\Hypertarget{yfinance_8py_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}date"{}}:\ date.strftime(\textcolor{stringliteral}{"{}\%Y-\/\%m-\/\%d"{}}),}
+\DoxyCodeLine{\Hypertarget{yfinance_8py_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}open"{}}:\ float(row[\textcolor{stringliteral}{"{}Open"{}}]),}
+\DoxyCodeLine{\Hypertarget{yfinance_8py_source_l00018}00018\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}high"{}}:\ float(row[\textcolor{stringliteral}{"{}High"{}}]),}
+\DoxyCodeLine{\Hypertarget{yfinance_8py_source_l00019}00019\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}low"{}}:\ float(row[\textcolor{stringliteral}{"{}Low"{}}]),}
+\DoxyCodeLine{\Hypertarget{yfinance_8py_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}close"{}}:\ float(row[\textcolor{stringliteral}{"{}Close"{}}]),}
+\DoxyCodeLine{\Hypertarget{yfinance_8py_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}volume"{}}:\ int(row[\textcolor{stringliteral}{"{}Volume"{}}])}
+\DoxyCodeLine{\Hypertarget{yfinance_8py_source_l00022}00022\ \ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\Hypertarget{yfinance_8py_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{yfinance_8py_source_l00024}00024\ \ \ \ \ \textcolor{keywordflow}{return}\ data}
+
+\end{DoxyCode}

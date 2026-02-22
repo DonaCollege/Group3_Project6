@@ -86,3 +86,12 @@ def delete_stock(self, stock_id: int):
     conn.commit()
     conn.close()
     return deleted > 0
+##
+# @file database.py
+# @brief SQLite database access layer.
+#
+# @details
+# Handles database connection, table creation, insertion,
+# and retrieval of stock market data.
+# Implements simple repository pattern.
+##

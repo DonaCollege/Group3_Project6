@@ -1,0 +1,119 @@
+\doxysection{companies Namespace Reference}
+\hypertarget{namespacecompanies}{}\label{namespacecompanies}\index{companies@{companies}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classcompanies_1_1_company_create}{Company\+Create}}
+\item 
+class \mbox{\hyperlink{classcompanies_1_1_company_update}{Company\+Update}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacecompanies_a549d9ff3fd0b438147eee2a9e8f3a56f}{search\+\_\+companies}} (str query=Query(default="{}"{}), int limit=20)
+\begin{DoxyCompactList}\small\item\em Search companies by ticker or name. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacecompanies_aabc91e7c4ff0ba699e3208393e07fd43}{get\+\_\+company\+\_\+details}} (str ticker)
+\item 
+\mbox{\hyperlink{namespacecompanies_a5df50e224f3b0dc568ee86953bc7fcc4}{create\+\_\+company}} (dict payload)
+\item 
+\mbox{\hyperlink{namespacecompanies_ac608b7c6cd256cd6f72f4b9ad4c7894e}{update\+\_\+company}} (int stock\+\_\+id, \mbox{\hyperlink{classcompanies_1_1_company_update}{Company\+Update}} update\+\_\+data)
+\item 
+\mbox{\hyperlink{namespacecompanies_a847e5de086b6f818c2f4b1263ec734e6}{delete\+\_\+company}} (int stock\+\_\+id)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacecompanies_aa04dd04796c6a8b6b2bbc1b86a023830}{router}} = APIRouter(prefix="{}/companies"{}, tags=\mbox{[}"{}Companies"{}\mbox{]})
+\item 
+\mbox{\hyperlink{namespacecompanies_a700d0192ca1963edf47990c5122641ae}{db}} = \mbox{\hyperlink{classdata_1_1database_1_1_database}{Database}}()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacecompanies_a5df50e224f3b0dc568ee86953bc7fcc4}\label{namespacecompanies_a5df50e224f3b0dc568ee86953bc7fcc4} 
+\index{companies@{companies}!create\_company@{create\_company}}
+\index{create\_company@{create\_company}!companies@{companies}}
+\doxysubsubsection{\texorpdfstring{create\_company()}{create\_company()}}
+{\footnotesize\ttfamily companies.\+create\+\_\+company (\begin{DoxyParamCaption}\item[{dict}]{payload }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{companies_8py_source_l00129}{129}} of file \mbox{\hyperlink{companies_8py_source}{companies.\+py}}.
+
+\Hypertarget{namespacecompanies_a847e5de086b6f818c2f4b1263ec734e6}\label{namespacecompanies_a847e5de086b6f818c2f4b1263ec734e6} 
+\index{companies@{companies}!delete\_company@{delete\_company}}
+\index{delete\_company@{delete\_company}!companies@{companies}}
+\doxysubsubsection{\texorpdfstring{delete\_company()}{delete\_company()}}
+{\footnotesize\ttfamily companies.\+delete\+\_\+company (\begin{DoxyParamCaption}\item[{int}]{stock\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{companies_8py_source_l00151}{151}} of file \mbox{\hyperlink{companies_8py_source}{companies.\+py}}.
+
+\Hypertarget{namespacecompanies_aabc91e7c4ff0ba699e3208393e07fd43}\label{namespacecompanies_aabc91e7c4ff0ba699e3208393e07fd43} 
+\index{companies@{companies}!get\_company\_details@{get\_company\_details}}
+\index{get\_company\_details@{get\_company\_details}!companies@{companies}}
+\doxysubsubsection{\texorpdfstring{get\_company\_details()}{get\_company\_details()}}
+{\footnotesize\ttfamily companies.\+get\+\_\+company\+\_\+details (\begin{DoxyParamCaption}\item[{str}]{ticker }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{companies_8py_source_l00107}{107}} of file \mbox{\hyperlink{companies_8py_source}{companies.\+py}}.
+
+\Hypertarget{namespacecompanies_a549d9ff3fd0b438147eee2a9e8f3a56f}\label{namespacecompanies_a549d9ff3fd0b438147eee2a9e8f3a56f} 
+\index{companies@{companies}!search\_companies@{search\_companies}}
+\index{search\_companies@{search\_companies}!companies@{companies}}
+\doxysubsubsection{\texorpdfstring{search\_companies()}{search\_companies()}}
+{\footnotesize\ttfamily companies.\+search\+\_\+companies (\begin{DoxyParamCaption}\item[{str }]{query = {\ttfamily Query(default="{}"{})},  }\item[{int }]{limit = {\ttfamily 20} }\end{DoxyParamCaption})}
+
+
+
+Search companies by ticker or name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em query} & Search string for filtering company names. \\
+\hline
+{\em limit} & Maximum number of records to return. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+JSON list of matching companies. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{companies_8py_source_l00081}{81}} of file \mbox{\hyperlink{companies_8py_source}{companies.\+py}}.
+
+\Hypertarget{namespacecompanies_ac608b7c6cd256cd6f72f4b9ad4c7894e}\label{namespacecompanies_ac608b7c6cd256cd6f72f4b9ad4c7894e} 
+\index{companies@{companies}!update\_company@{update\_company}}
+\index{update\_company@{update\_company}!companies@{companies}}
+\doxysubsubsection{\texorpdfstring{update\_company()}{update\_company()}}
+{\footnotesize\ttfamily companies.\+update\+\_\+company (\begin{DoxyParamCaption}\item[{int}]{stock\+\_\+id,  }\item[{\mbox{\hyperlink{classcompanies_1_1_company_update}{Company\+Update}}}]{update\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{companies_8py_source_l00143}{143}} of file \mbox{\hyperlink{companies_8py_source}{companies.\+py}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacecompanies_a700d0192ca1963edf47990c5122641ae}\label{namespacecompanies_a700d0192ca1963edf47990c5122641ae} 
+\index{companies@{companies}!db@{db}}
+\index{db@{db}!companies@{companies}}
+\doxysubsubsection{\texorpdfstring{db}{db}}
+{\footnotesize\ttfamily companies.\+db = \mbox{\hyperlink{classdata_1_1database_1_1_database}{Database}}()}
+
+
+
+Definition at line \mbox{\hyperlink{companies_8py_source_l00068}{68}} of file \mbox{\hyperlink{companies_8py_source}{companies.\+py}}.
+
+\Hypertarget{namespacecompanies_aa04dd04796c6a8b6b2bbc1b86a023830}\label{namespacecompanies_aa04dd04796c6a8b6b2bbc1b86a023830} 
+\index{companies@{companies}!router@{router}}
+\index{router@{router}!companies@{companies}}
+\doxysubsubsection{\texorpdfstring{router}{router}}
+{\footnotesize\ttfamily companies.\+router = APIRouter(prefix="{}/companies"{}, tags=\mbox{[}"{}Companies"{}\mbox{]})}
+
+
+
+Definition at line \mbox{\hyperlink{companies_8py_source_l00067}{67}} of file \mbox{\hyperlink{companies_8py_source}{companies.\+py}}.
+

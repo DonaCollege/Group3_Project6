@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['c1_0',['c1',['../namespaceapp.html#a450fc58a9866b3d73832ab40377c0b5c',1,'app']]],
+  ['c2_1',['c2',['../namespaceapp.html#a5703148a7abdd437640cec462f5a9c15',1,'app']]],
+  ['c3_2',['c3',['../namespaceapp.html#a4780b2a69f6bd9c96f5432171abbdae6',1,'app']]],
+  ['calculate_5fvar_3',['calculate_var',['../namespaceservices_1_1risk__service.html#a6cbc7148043bf3067eb983c2ee6d4e83',1,'services::risk_service']]],
+  ['col1_4',['col1',['../namespaceapp.html#a7a411ea567ac1ca0c5c461278144a7e1',1,'app']]],
+  ['col2_5',['col2',['../namespaceapp.html#a5a5fda4e66a5b10cce19391f477e1298',1,'app']]],
+  ['col3_6',['col3',['../namespaceapp.html#a6741c59d19870c5f024fd2337c49ce92',1,'app']]],
+  ['companies_7',['companies',['../namespacecompanies.html',1,'']]],
+  ['companies_2epy_8',['companies.py',['../companies_8py.html',1,'']]],
+  ['company_2epy_9',['company.py',['../company_8py.html',1,'']]],
+  ['company_5fid_10',['company_id',['../namespaceapp.html#ab5b53a847f8f20b26390faca3f413f73',1,'app']]],
+  ['company_5fname_11',['company_name',['../namespaceapp.html#a00fdfca3ee92225531a5d68e53bb1605',1,'app']]],
+  ['companycreate_12',['CompanyCreate',['../classcompanies_1_1_company_create.html',1,'companies.CompanyCreate'],['../classschemas_1_1company_1_1_company_create.html',1,'schemas.company.CompanyCreate']]],
+  ['companyname_13',['companyName',['../classcompanies_1_1_company_create.html#a0ca33ceea3e174be50ea9a0c2ffbbc19',1,'companies.CompanyCreate.companyName'],['../classcompanies_1_1_company_update.html#a076f3104d8595385565ae6fd5b1b85bc',1,'companies.CompanyUpdate.companyName']]],
+  ['companyupdate_14',['CompanyUpdate',['../classcompanies_1_1_company_update.html',1,'companies.CompanyUpdate'],['../classschemas_1_1company_1_1_company_update.html',1,'schemas.company.CompanyUpdate']]],
+  ['compute_5fvolatility_15',['compute_volatility',['../namespaceservices_1_1analytics__service.html#a37a6b404982963d51f89423cb4c2780a',1,'services::analytics_service']]],
+  ['confidence_16',['confidence',['../classschemas_1_1risk_1_1_va_r_request.html#a1d7f3818f756145eee17ac57dc054ba8',1,'schemas.risk.VaRRequest.confidence'],['../namespaceapp.html#a228ba1d86e8c8ac6f575931eee303024',1,'app.confidence']]],
+  ['config_17',['config',['../namespaceconfig.html',1,'']]],
+  ['config_2epy_18',['config.py',['../config_8py.html',1,'']]],
+  ['connect_19',['connect',['../classdata_1_1database_1_1_database.html#a3006438eb0dd8fdb2ffbe73d31d1ac22',1,'data::database::Database']]],
+  ['create_5fcompany_20',['create_company',['../namespacecompanies.html#a5df50e224f3b0dc568ee86953bc7fcc4',1,'companies']]],
+  ['create_5fdate_21',['create_date',['../namespaceapp.html#ae06b31afb34e4a3aea3fd9cfb6fcf163',1,'app']]],
+  ['create_5ftable_22',['create_table',['../classdata_1_1database_1_1_database.html#a993b324f7d0648e3c2db8b820c2ab535',1,'data::database::Database']]]
+];

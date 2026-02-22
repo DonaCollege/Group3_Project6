@@ -1,0 +1,69 @@
+#--------------------------------------------------
+# Project Information
+#--------------------------------------------------
+
+PROJECT_NAME           = "Financial Performance Project (Group 3)"
+PROJECT_BRIEF          = "FastAPI-based financial analytics system for performance testing"
+OUTPUT_DIRECTORY       = docs
+DOXYFILE_ENCODING      = UTF-8
+OUTPUT_LANGUAGE        = English
+
+#--------------------------------------------------
+# Input
+#--------------------------------------------------
+
+INPUT                  = .
+RECURSIVE              = YES
+FILE_PATTERNS          = *.py
+INPUT_ENCODING         = UTF-8
+
+# Use README as main page (optional but recommended)
+USE_MDFILE_AS_MAINPAGE = README.md
+MARKDOWN_SUPPORT       = YES
+
+#--------------------------------------------------
+# Extraction Settings
+#--------------------------------------------------
+
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+EXTRACT_LOCAL_CLASSES  = YES
+HIDE_UNDOC_MEMBERS     = NO
+HIDE_UNDOC_CLASSES     = NO
+
+#--------------------------------------------------
+# Python Settings
+#--------------------------------------------------
+
+OPTIMIZE_OUTPUT_JAVA   = YES
+OPTIMIZE_OUTPUT_FOR_C  = NO
+PYTHON_DOCSTRING       = YES
+
+#--------------------------------------------------
+# Build Output
+#--------------------------------------------------
+
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+GENERATE_XML           = NO
+GENERATE_TREEVIEW      = YES
+FULL_PATH_NAMES        = NO
+
+#--------------------------------------------------
+# Warnings (Helpful for debugging)
+#--------------------------------------------------
+
+WARNINGS               = YES
+WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_DOC_ERROR      = YES
+QUIET                  = NO
+
+#--------------------------------------------------
+# Misc
+#--------------------------------------------------
+
+SOURCE_BROWSER         = YES
+INLINE_SOURCES         = NO
+STRIP_CODE_COMMENTS    = NO
+GENERATE_LATEX = YES

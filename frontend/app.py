@@ -1,3 +1,17 @@
+##
+# @file app.py
+# @brief Streamlit frontend for Financial Analytics API.
+#
+# @details
+# Provides user interface for:
+# - Browsing company data
+# - Running analytics
+# - Performing risk calculations
+# - Monitoring API health
+#
+# Communicates with FastAPI backend via REST APIs.
+##
+
 import os
 import time
 from dataclasses import dataclass

@@ -22,7 +22,14 @@
 #         "risk_level": "High" if acc / iterations > 0.3 else "Low"
 #     }
 
-
+##
+# @file risk.py
+# @brief Risk analysis endpoints.
+#
+# @details
+# Provides Value at Risk (VaR) calculation using Monte Carlo simulation.
+# Designed to simulate computational load for performance evaluation.
+##
 from data.database import Database
 import statistics
 

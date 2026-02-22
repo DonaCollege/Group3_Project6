@@ -1,0 +1,103 @@
+\doxysection{database.\+py}
+\hypertarget{database_8py_source}{}\label{database_8py_source}\index{database.py@{database.py}}
+\mbox{\hyperlink{database_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00001}\mbox{\hyperlink{namespacedata}{00001}}\ \textcolor{keyword}{import}\ sqlite3}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00002}00002\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00004}\mbox{\hyperlink{classdata_1_1database_1_1_database}{00004}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classdata_1_1database_1_1_database}{Database}}:}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00005}\mbox{\hyperlink{classdata_1_1database_1_1_database_a6bfe324318da3a31fb9198d3470da6a2}{00005}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdata_1_1database_1_1_database_a6bfe324318da3a31fb9198d3470da6a2}{\_\_init\_\_}}(self,\ db\_name="{}stocks.db"{}):}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00006}00006\ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ Absolute\ path\ relative\ to\ THIS\ file}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00007}00007\ \ \ \ \ \ \ \ \ base\_dir\ =\ os.path.dirname(os.path.abspath(\_\_file\_\_))}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00008}\mbox{\hyperlink{classdata_1_1database_1_1_database_a410bf761aefc348c70b7b5ba1c6a72e4}{00008}}\ \ \ \ \ \ \ \ \ self.\mbox{\hyperlink{classdata_1_1database_1_1_database_a410bf761aefc348c70b7b5ba1c6a72e4}{db\_path}}\ =\ os.path.join(base\_dir,\ db\_name)}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00010}\mbox{\hyperlink{classdata_1_1database_1_1_database_a3006438eb0dd8fdb2ffbe73d31d1ac22}{00010}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdata_1_1database_1_1_database_a3006438eb0dd8fdb2ffbe73d31d1ac22}{connect}}(self):}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00011}00011\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sqlite3.connect(self.\mbox{\hyperlink{classdata_1_1database_1_1_database_a410bf761aefc348c70b7b5ba1c6a72e4}{db\_path}})}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00012}\mbox{\hyperlink{classdata_1_1database_1_1_database_a993b324f7d0648e3c2db8b820c2ab535}{00012}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdata_1_1database_1_1_database_a993b324f7d0648e3c2db8b820c2ab535}{create\_table}}(self):}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00013}00013\ \ \ \ \ \ \ \ \ CREATE\_STOCK\_TABLE\ =\ \textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00014}00014\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ CREATE\ TABLE\ IF\ NOT\ EXISTS\ stocks\ (}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00015}00015\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ stockId\ INTEGER\ PRIMARY\ KEY\ AUTOINCREMENT,}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00016}00016\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ companyName\ TEXT\ NOT\ NULL,}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00017}00017\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ date\ TEXT\ NOT\ NULL,}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00018}00018\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ open\ REAL\ NOT\ NULL,}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00019}00019\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ high\ REAL\ NOT\ NULL,}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00020}00020\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ low\ REAL\ NOT\ NULL,}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00021}00021\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ close\ REAL\ NOT\ NULL,}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00022}00022\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ volume\ INTEGER}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00023}00023\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ );}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00024}00024\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00025}00025\ \ \ \ \ \ \ \ \ conn\ =\ self.\mbox{\hyperlink{classdata_1_1database_1_1_database_a3006438eb0dd8fdb2ffbe73d31d1ac22}{connect}}()}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00026}00026\ \ \ \ \ \ \ \ \ cursor\ =\ conn.cursor()}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00027}00027\ \ \ \ \ \ \ \ \ cursor.execute(CREATE\_STOCK\_TABLE)}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00028}00028\ \ \ \ \ \ \ \ \ conn.commit()}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00029}00029\ \ \ \ \ \ \ \ \ conn.close()}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00031}\mbox{\hyperlink{classdata_1_1database_1_1_database_a12592739a1032209c2252eb64dad310d}{00031}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdata_1_1database_1_1_database_a12592739a1032209c2252eb64dad310d}{insert\_stock}}(self,\ stock):}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00032}00032\ \ \ \ \ \ \ \ \ conn\ =\ self.\mbox{\hyperlink{classdata_1_1database_1_1_database_a3006438eb0dd8fdb2ffbe73d31d1ac22}{connect}}()}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00033}00033\ \ \ \ \ \ \ \ \ cursor\ =\ conn.cursor()}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00035}00035\ \ \ \ \ \ \ \ \ cursor.execute(\textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00036}00036\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ INSERT\ INTO\ stocks\ (companyName,\ date,\ open,\ high,\ low,\ close,\ volume)}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00037}00037\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ VALUES\ (?,\ ?,\ ?,\ ?,\ ?,\ ?,\ ?)}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00038}00038\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}},\ (}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ stock[\textcolor{stringliteral}{"{}companyName"{}}],}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ stock[\textcolor{stringliteral}{"{}date"{}}],}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ stock[\textcolor{stringliteral}{"{}open"{}}],}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ stock[\textcolor{stringliteral}{"{}high"{}}],}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ stock[\textcolor{stringliteral}{"{}low"{}}],}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ stock[\textcolor{stringliteral}{"{}close"{}}],}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ stock[\textcolor{stringliteral}{"{}volume"{}}]}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ ))}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00048}00048\ \ \ \ \ \ \ \ \ conn.commit()}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00049}00049\ \ \ \ \ \ \ \ \ conn.close()}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00051}\mbox{\hyperlink{classdata_1_1database_1_1_database_aabef3a856758b4e5efe4674d1c670509}{00051}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdata_1_1database_1_1_database_aabef3a856758b4e5efe4674d1c670509}{get\_all\_stocks}}(self,\ limit=100):}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00052}00052\ \ \ \ \ \ \ \ \ conn\ =\ self.\mbox{\hyperlink{classdata_1_1database_1_1_database_a3006438eb0dd8fdb2ffbe73d31d1ac22}{connect}}()}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ cursor\ =\ conn.cursor()}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00055}00055\ \ \ \ \ \ \ \ \ cursor.execute(\textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00056}00056\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ SELECT\ *\ FROM\ stocks}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00057}00057\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ ORDER\ BY\ date\ DESC}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00058}00058\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ LIMIT\ ?}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00059}00059\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}},\ (limit,))}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ rows\ =\ cursor.fetchall()}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ conn.close()}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rows}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00065}\mbox{\hyperlink{classdata_1_1database_1_1_database_a56cb93f77b2e398dfa57c584ab95f97e}{00065}}\ \ \ \ \ \textcolor{keyword}{def\ }\mbox{\hyperlink{classdata_1_1database_1_1_database_a56cb93f77b2e398dfa57c584ab95f97e}{get\_stocks\_by\_company}}(self,\ company,\ limit=100):}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ conn\ =\ self.\mbox{\hyperlink{classdata_1_1database_1_1_database_a3006438eb0dd8fdb2ffbe73d31d1ac22}{connect}}()}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ cursor\ =\ conn.cursor()}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00069}00069\ \ \ \ \ \ \ \ \ cursor.execute(\textcolor{stringliteral}{"{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00070}00070\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ SELECT\ *\ FROM\ stocks}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00071}00071\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ WHERE\ companyName\ =\ ?}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00072}00072\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ ORDER\ BY\ date\ DESC}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00073}00073\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ \ \ \ \ LIMIT\ ?}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00074}00074\ \textcolor{stringliteral}{\ \ \ \ \ \ \ \ "{}"{}"{}},\ (company,\ limit))}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00076}00076\ \ \ \ \ \ \ \ \ rows\ =\ cursor.fetchall()}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00077}00077\ \ \ \ \ \ \ \ \ conn.close()}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00078}00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rows}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00079}00079\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00080}00080\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00081}\mbox{\hyperlink{namespacedata_1_1database_abd1d3c983ac8631d10c22b0e49983ec5}{00081}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespacedata_1_1database_abd1d3c983ac8631d10c22b0e49983ec5}{delete\_stock}}(self,\ stock\_id:\ int):}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00082}00082\ \ \ \ \ conn\ =\ self.connect()}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00083}00083\ \ \ \ \ cursor\ =\ conn.cursor()}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00084}00084\ \ \ \ \ cursor.execute(\textcolor{stringliteral}{"{}DELETE\ FROM\ stocks\ WHERE\ stockId\ =\ ?"{}},\ (stock\_id,))}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00085}00085\ \ \ \ \ deleted\ =\ cursor.rowcount}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00086}00086\ \ \ \ \ conn.commit()}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00087}00087\ \ \ \ \ conn.close()}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00088}00088\ \ \ \ \ \textcolor{keywordflow}{return}\ deleted\ >\ 0}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00089}00089\ \textcolor{comment}{\#\#}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00090}00090\ \textcolor{comment}{\#\ @file\ database.py}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00091}00091\ \textcolor{comment}{\#\ @brief\ SQLite\ database\ access\ layer.}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00092}00092\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00093}00093\ \textcolor{comment}{\#\ @details}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00094}00094\ \textcolor{comment}{\#\ Handles\ database\ connection,\ table\ creation,\ insertion,}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00095}00095\ \textcolor{comment}{\#\ and\ retrieval\ of\ stock\ market\ data.}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00096}00096\ \textcolor{comment}{\#\ Implements\ simple\ repository\ pattern.}}
+\DoxyCodeLine{\Hypertarget{database_8py_source_l00097}00097\ \textcolor{comment}{\#\#}}
+
+\end{DoxyCode}

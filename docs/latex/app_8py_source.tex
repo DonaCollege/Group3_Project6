@@ -1,0 +1,323 @@
+\doxysection{app.\+py}
+\hypertarget{app_8py_source}{}\label{app_8py_source}\index{app.py@{app.py}}
+\mbox{\hyperlink{app_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00001}\mbox{\hyperlink{namespaceapp}{00001}}\ \textcolor{comment}{\#\#}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00002}00002\ \textcolor{comment}{\#\ @file\ app.py}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00003}00003\ \textcolor{comment}{\#\ @brief\ Streamlit\ frontend\ for\ Financial\ Analytics\ API.}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00004}00004\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00005}00005\ \textcolor{comment}{\#\ @details}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00006}00006\ \textcolor{comment}{\#\ Provides\ user\ interface\ for:}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00007}00007\ \textcolor{comment}{\#\ -\/\ Browsing\ company\ data}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00008}00008\ \textcolor{comment}{\#\ -\/\ Running\ analytics}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00009}00009\ \textcolor{comment}{\#\ -\/\ Performing\ risk\ calculations}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00010}00010\ \textcolor{comment}{\#\ -\/\ Monitoring\ API\ health}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00011}00011\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00012}00012\ \textcolor{comment}{\#\ Communicates\ with\ FastAPI\ backend\ via\ REST\ APIs.}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00013}00013\ \textcolor{comment}{\#\#}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00015}00015\ \textcolor{keyword}{import}\ os}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00016}00016\ \textcolor{keyword}{import}\ time}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00017}00017\ \textcolor{keyword}{from}\ dataclasses\ \textcolor{keyword}{import}\ dataclass}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00018}00018\ \textcolor{keyword}{from}\ typing\ \textcolor{keyword}{import}\ Any,\ Dict,\ Optional}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00019}00019\ \textcolor{keyword}{import}\ requests}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00020}00020\ \textcolor{keyword}{import}\ pandas\ \textcolor{keyword}{as}\ pd}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00021}00021\ \textcolor{keyword}{import}\ streamlit\ \textcolor{keyword}{as}\ st}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00022}00022\ \textcolor{keyword}{from}\ datetime\ \textcolor{keyword}{import}\ date}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00024}00024\ \textcolor{comment}{\#\ =============================}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00025}00025\ \textcolor{comment}{\#\ Config}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00026}00026\ \textcolor{comment}{\#\ =============================}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00027}\mbox{\hyperlink{namespaceapp_a58cdec70674686cd1e287c7a58de352c}{00027}}\ API\_BASE\_URL\ =\ os.getenv(\textcolor{stringliteral}{"{}API\_BASE\_URL"{}},\ \textcolor{stringliteral}{"{}http://localhost:8000"{}}).rstrip(\textcolor{stringliteral}{"{}/"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00029}00029\ st.set\_page\_config(}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00030}\mbox{\hyperlink{namespaceapp_a2c5b508829b4995a003ebbea7efab85e}{00030}}\ \ \ \ \ page\_title=\textcolor{stringliteral}{"{}Financial\ Analytics\ UI"{}},}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00031}\mbox{\hyperlink{namespaceapp_adcd4161b2b197e0cf698a7ae8ca84488}{00031}}\ \ \ \ \ page\_icon=\textcolor{stringliteral}{"{}📈"{}},}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00032}\mbox{\hyperlink{namespaceapp_a32ab50610df58ba90f40d85d72ba822d}{00032}}\ \ \ \ \ layout=\textcolor{stringliteral}{"{}wide"{}},}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00033}00033\ )}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00035}00035\ \textcolor{comment}{\#\ =============================}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00036}00036\ \textcolor{comment}{\#\ API\ Helper}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00037}00037\ \textcolor{comment}{\#\ =============================}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00038}00038\ \textcolor{preprocessor}{@dataclass}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00039}\mbox{\hyperlink{classapp_1_1_api_result}{00039}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classapp_1_1_api_result}{ApiResult}}:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00040}\mbox{\hyperlink{classapp_1_1_api_result_abd97e4f418f4aeebf7408b9c4c6eeac2}{00040}}\ \ \ \ \ ok:\ bool}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00041}\mbox{\hyperlink{classapp_1_1_api_result_a20bd75c7f3deca8cdc1755f1b33cce5b}{00041}}\ \ \ \ \ status\_code:\ int}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00042}\mbox{\hyperlink{classapp_1_1_api_result_a34324d4cf63c718f564bf932039b44d5}{00042}}\ \ \ \ \ elapsed\_ms:\ int}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00043}\mbox{\hyperlink{classapp_1_1_api_result_ab99e9467a735735453193fe95b3b435e}{00043}}\ \ \ \ \ data:\ Optional[Dict[str,\ Any]]\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00044}\mbox{\hyperlink{classapp_1_1_api_result_a03295451a3e0e7372fe9a4eb9790cabe}{00044}}\ \ \ \ \ error:\ Optional[str]\ =\ \textcolor{keywordtype}{None}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00046}\mbox{\hyperlink{namespaceapp_ae350c4308889c8d25da2915b61bbc8da}{00046}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceapp_ae350c4308889c8d25da2915b61bbc8da}{api\_request}}(method:\ str,\ path:\ str,\ *,\ params=\textcolor{keywordtype}{None},\ json=\textcolor{keywordtype}{None},\ timeout=15)\ -\/>\ ApiResult:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00047}00047\ \ \ \ \ url\ =\ f\textcolor{stringliteral}{"{}\{API\_BASE\_URL\}\{path\}"{}}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00048}00048\ \ \ \ \ start\ =\ time.perf\_counter()}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00050}00050\ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00051}00051\ \ \ \ \ \ \ \ \ r\ =\ requests.request(method,\ url,\ params=params,\ json=json,\ timeout=timeout)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00052}00052\ \ \ \ \ \ \ \ \ elapsed\_ms\ =\ int((time.perf\_counter()\ -\/\ start)\ *\ 1000)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00054}00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ r.ok:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classapp_1_1_api_result}{ApiResult}}(\textcolor{keyword}{True},\ r.status\_code,\ elapsed\_ms,\ data=r.json())}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ payload\ =\ r.json()}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ msg\ =\ payload.get(\textcolor{stringliteral}{"{}detail"{}})\ \textcolor{keywordflow}{or}\ payload.get(\textcolor{stringliteral}{"{}error"{}})\ \textcolor{keywordflow}{or}\ str(payload)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00060}00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{except}\ Exception:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ msg\ =\ r.text[:500]}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classapp_1_1_api_result}{ApiResult}}(\textcolor{keyword}{False},\ r.status\_code,\ elapsed\_ms,\ error=msg)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00065}00065\ \ \ \ \ \textcolor{keywordflow}{except}\ requests.RequestException\ \textcolor{keyword}{as}\ e:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00066}00066\ \ \ \ \ \ \ \ \ elapsed\_ms\ =\ int((time.perf\_counter()\ -\/\ start)\ *\ 1000)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00067}00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classapp_1_1_api_result}{ApiResult}}(\textcolor{keyword}{False},\ 0,\ elapsed\_ms,\ error=str(e))}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00069}\mbox{\hyperlink{namespaceapp_a92822b0e041df97d1fe2c69dd6347623}{00069}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceapp_a92822b0e041df97d1fe2c69dd6347623}{header\_with\_meta}}(title:\ str,\ subtitle:\ str\ =\ \textcolor{stringliteral}{"{}"{}}):}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00070}00070\ \ \ \ \ col1,\ col2\ =\ st.columns([3,\ 2],\ vertical\_alignment=\textcolor{stringliteral}{"{}bottom"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00072}00072\ \ \ \ \ \textcolor{keyword}{with}\ col1:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00073}00073\ \ \ \ \ \ \ \ \ st.title(title)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00074}00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ subtitle:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ st.caption(subtitle)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00077}00077\ \ \ \ \ \textcolor{keyword}{with}\ col2:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00078}00078\ \ \ \ \ \ \ \ \ st.caption(f\textcolor{stringliteral}{"{}API\ Base\ URL:\ \`{}\{API\_BASE\_URL\}`"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00080}00080\ \textcolor{comment}{\#\ =============================}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00081}00081\ \textcolor{comment}{\#\ Sidebar}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00082}00082\ \textcolor{comment}{\#\ =============================}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00083}00083\ st.sidebar.header(\textcolor{stringliteral}{"{}Navigation"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00084}\mbox{\hyperlink{namespaceapp_a0aa9707053e0082ace1eb37e3c5c5359}{00084}}\ page\ =\ st.sidebar.radio(\textcolor{stringliteral}{"{}Go\ to"{}},\ [\textcolor{stringliteral}{"{}Browse\ Data"{}},\ \textcolor{stringliteral}{"{}Run\ Analytics"{}},\ \textcolor{stringliteral}{"{}Health\ /\ Debug"{}}])}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00086}00086\ st.sidebar.divider()}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00087}00087\ st.sidebar.subheader(\textcolor{stringliteral}{"{}Common\ filters"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00089}\mbox{\hyperlink{namespaceapp_a8723491d136286dbe8bae531f4ccebae}{00089}}\ ticker\ =\ st.sidebar.text\_input(\textcolor{stringliteral}{"{}Ticker\ (e.g.,\ AAPL)"{}},\ value=\textcolor{stringliteral}{"{}AAPL"{}},\ key=\textcolor{stringliteral}{"{}sidebar\_ticker"{}}).strip().upper()}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00090}\mbox{\hyperlink{namespaceapp_a54ccf261d199a2511eab430cace92a16}{00090}}\ start\_date\ =\ st.sidebar.date\_input(\textcolor{stringliteral}{"{}Start\ date"{}},\ value=date(2025,\ 1,\ 1),\ key=\textcolor{stringliteral}{"{}sidebar\_start"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00091}\mbox{\hyperlink{namespaceapp_aef2fa22ab834a420135968bfd0570901}{00091}}\ end\_date\ =\ st.sidebar.date\_input(\textcolor{stringliteral}{"{}End\ date"{}},\ value=date(2026,\ 2,\ 17),\ key=\textcolor{stringliteral}{"{}sidebar\_end"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00093}00093\ \textcolor{keywordflow}{if}\ start\_date\ >\ end\_date:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00094}00094\ \ \ \ \ st.sidebar.error(\textcolor{stringliteral}{"{}Start\ date\ must\ be\ before\ end\ date."{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00096}00096\ \textcolor{comment}{\#\ =====================================================}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00097}00097\ \textcolor{comment}{\#\ PAGE:\ Browse\ Data}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00098}00098\ \textcolor{comment}{\#\ =====================================================}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00099}00099\ \textcolor{keywordflow}{if}\ page\ ==\ \textcolor{stringliteral}{"{}Browse\ Data"{}}:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00100}00100\ \ \ \ \ \mbox{\hyperlink{namespaceapp_a92822b0e041df97d1fe2c69dd6347623}{header\_with\_meta}}(\textcolor{stringliteral}{"{}Browse\ Data"{}},\ \textcolor{stringliteral}{"{}Look\ up\ companies\ and\ view\ their\ price\ history."{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00102}\mbox{\hyperlink{namespaceapp_ab6ba6b345907ce5454fe61a39fb92e59}{00102}}\ \ \ \ \ query\ =\ st.text\_input(\textcolor{stringliteral}{"{}Search\ companies\ (ticker\ or\ name)"{}},\ value=\textcolor{stringliteral}{"{}"{}},\ key=\textcolor{stringliteral}{"{}search\_query"{}}).strip()}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00104}\mbox{\hyperlink{namespaceapp_a469a2a726d946ac15bad00fb6036f4ea}{00104}}\ \ \ \ \ left,\ right\ =\ st.columns([1,\ 2],\ vertical\_alignment=\textcolor{stringliteral}{"{}bottom"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00105}00105\ \ \ \ \ \textcolor{keyword}{with}\ left:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00106}\mbox{\hyperlink{namespaceapp_a1aca91a5db83331bd47605bd16b6c974}{00106}}\ \ \ \ \ \ \ \ \ do\_search\ =\ st.button(\textcolor{stringliteral}{"{}Search"{}},\ type=\textcolor{stringliteral}{"{}primary"{}},\ disabled=(len(query)\ ==\ 0),\ key=\textcolor{stringliteral}{"{}search\_btn"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00107}00107\ \ \ \ \ \textcolor{keyword}{with}\ right:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00108}00108\ \ \ \ \ \ \ \ \ st.caption(\textcolor{stringliteral}{"{}Tip:\ search\ by\ ticker\ (AAPL)\ or\ partial\ company\ name."{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00110}00110\ \ \ \ \ \textcolor{keywordflow}{if}\ do\_search:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00111}\mbox{\hyperlink{namespaceapp_aa7bc325e05f4c2538de25bbf88a4b92f}{00111}}\ \ \ \ \ \ \ \ \ res\ =\ \mbox{\hyperlink{namespaceapp_ae350c4308889c8d25da2915b61bbc8da}{api\_request}}(\textcolor{stringliteral}{"{}GET"{}},\ \textcolor{stringliteral}{"{}/companies"{}},\ params=\{\textcolor{stringliteral}{"{}query"{}}:\ query\})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00113}00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ res.ok\ \textcolor{keywordflow}{and}\ res.data\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00114}\mbox{\hyperlink{namespaceapp_a2ddf46ca95dc001be4d3b012e7aea04b}{00114}}\ \ \ \ \ \ \ \ \ \ \ \ \ items\ =\ res.data.get(\textcolor{stringliteral}{"{}items"{}},\ [])}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ st.success(f\textcolor{stringliteral}{"{}Found\ \{len(items)\}\ results\ in\ \{res.elapsed\_ms\}\ ms"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ items:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00117}\mbox{\hyperlink{namespaceapp_a2b143d591741675b5585ceadbff76a6d}{00117}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.dataframe(pd.DataFrame(items),\ use\_container\_width=\textcolor{keyword}{True},\ hide\_index=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.info(\textcolor{stringliteral}{"{}No\ matching\ companies\ found."{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00120}00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ st.error(f\textcolor{stringliteral}{"{}Search\ failed:\ \{res.error\}"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00123}00123\ \ \ \ \ st.divider()}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00124}00124\ \ \ \ \ st.subheader(\textcolor{stringliteral}{"{}Company\ Details"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00125}00125\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00126}00126\ \ \ \ \ \textcolor{keywordflow}{if}\ ticker:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00127}\mbox{\hyperlink{namespaceapp_a12591c0d46601dd43947363f08dd5815}{00127}}\ \ \ \ \ \ \ \ \ details\ =\ \mbox{\hyperlink{namespaceapp_ae350c4308889c8d25da2915b61bbc8da}{api\_request}}(\textcolor{stringliteral}{"{}GET"{}},\ f\textcolor{stringliteral}{"{}/companies/\{ticker\}"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00129}00129\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ details.ok\ \textcolor{keywordflow}{and}\ details.data:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00130}\mbox{\hyperlink{namespaceapp_a450fc58a9866b3d73832ab40377c0b5c}{00130}}\ \ \ \ \ \ \ \ \ \ \ \ \ c1,\ c2,\ c3\ =\ st.columns(3)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ c1:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.metric(\textcolor{stringliteral}{"{}Ticker"{}},\ details.data.get(\textcolor{stringliteral}{"{}ticker"{}},\ ticker))}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ c2:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.metric(\textcolor{stringliteral}{"{}Name"{}},\ details.data.get(\textcolor{stringliteral}{"{}name"{}},\ \textcolor{stringliteral}{"{}—"{}}))}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ c3:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.metric(\textcolor{stringliteral}{"{}Sector"{}},\ details.data.get(\textcolor{stringliteral}{"{}sector"{}},\ \textcolor{stringliteral}{"{}—"{}}))}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00137}00137\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ st.caption(f\textcolor{stringliteral}{"{}Loaded\ in\ \{details.elapsed\_ms\}\ ms"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00139}00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ st.error(f\textcolor{stringliteral}{"{}Company\ not\ found:\ \{details.error\}"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00142}00142\ \ \ \ \ \ \ \ \ st.divider()}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00143}00143\ \ \ \ \ \ \ \ \ st.subheader(\textcolor{stringliteral}{"{}Price\ History"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00145}\mbox{\hyperlink{namespaceapp_aeceecdac5bab73580eaa6183e6f892f0}{00145}}\ \ \ \ \ \ \ \ \ prices\ =\ \mbox{\hyperlink{namespaceapp_ae350c4308889c8d25da2915b61bbc8da}{api\_request}}(}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}GET"{}},}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}/prices/\{ticker\}"{}},}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ params=\{\textcolor{stringliteral}{"{}start"{}}:\ str(start\_date),\ \textcolor{stringliteral}{"{}end"{}}:\ str(end\_date)\},}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00149}00149\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00151}00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ prices.ok\ \textcolor{keywordflow}{and}\ prices.data:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00152}\mbox{\hyperlink{namespaceapp_a7d726c5652c758d3b49172abc2c58b2d}{00152}}\ \ \ \ \ \ \ \ \ \ \ \ \ rows\ =\ prices.data.get(\textcolor{stringliteral}{"{}rows"{}},\ [])}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ rows:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00154}\mbox{\hyperlink{namespaceapp_aa8d89b300f0f4ff82296af7598d207ff}{00154}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dfp\ =\ pd.DataFrame(rows)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.dataframe(dfp,\ use\_container\_width=\textcolor{keyword}{True},\ hide\_index=\textcolor{keyword}{True})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00156}00156\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{stringliteral}{"{}date"{}}\ \textcolor{keywordflow}{in}\ dfp.columns\ \textcolor{keywordflow}{and}\ \textcolor{stringliteral}{"{}close"{}}\ \textcolor{keywordflow}{in}\ dfp.columns:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00158}\mbox{\hyperlink{namespaceapp_aed9590489516c13cffd4827d6df765ae}{00158}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dfp[\textcolor{stringliteral}{"{}date"{}}]\ =\ pd.to\_datetime(dfp[\textcolor{stringliteral}{"{}date"{}}],\ errors=\textcolor{stringliteral}{"{}coerce"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dfp\ =\ dfp.dropna(subset=[\textcolor{stringliteral}{"{}date"{}}]).sort\_values(\textcolor{stringliteral}{"{}date"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.line\_chart(dfp.set\_index(\textcolor{stringliteral}{"{}date"{}})[\textcolor{stringliteral}{"{}close"{}}])}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.info(\textcolor{stringliteral}{"{}No\ price\ data\ available."{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00163}00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ st.error(prices.error)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00166}00166\ \ \ \ \ \textcolor{comment}{\#\ =============================}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00167}00167\ \ \ \ \ \textcolor{comment}{\#\ MANAGE\ COMPANIES\ (CRUD)}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00168}00168\ \ \ \ \ \textcolor{comment}{\#\ =============================}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00169}00169\ \ \ \ \ st.divider()}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00170}00170\ \ \ \ \ st.subheader(\textcolor{stringliteral}{"{}Manage\ Companies\ (CRUD)"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00171}00171\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00172}\mbox{\hyperlink{namespaceapp_a837829dda62f12cef2d21f66ecde5f26}{00172}}\ \ \ \ \ tab1,\ tab2,\ tab3\ =\ st.tabs([\textcolor{stringliteral}{"{}➕\ Create"{}},\ \textcolor{stringliteral}{"{}✏️\ Update"{}},\ \textcolor{stringliteral}{"{}🗑️\ Delete"{}}])}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00174}00174\ \ \ \ \ \textcolor{comment}{\#\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ CREATE\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00175}00175\ \ \ \ \ \textcolor{keyword}{with}\ tab1:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00176}00176\ \ \ \ \ \ \ \ \ st.markdown(\textcolor{stringliteral}{"{}\#\#\#\ Create\ New\ Company\ Record"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00177}\mbox{\hyperlink{namespaceapp_a7a411ea567ac1ca0c5c461278144a7e1}{00177}}\ \ \ \ \ \ \ \ \ col1,\ col2\ =\ st.columns(2)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00178}00178\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ col1:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00179}\mbox{\hyperlink{namespaceapp_a00fdfca3ee92225531a5d68e53bb1605}{00179}}\ \ \ \ \ \ \ \ \ \ \ \ \ company\_name\ =\ st.text\_input(\textcolor{stringliteral}{"{}Company\ Name"{}},\ key=\textcolor{stringliteral}{"{}create\_name"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00180}\mbox{\hyperlink{namespaceapp_a31921411c4bcf77c7ba7894631b0ca73}{00180}}\ \ \ \ \ \ \ \ \ \ \ \ \ ticker\_input\ =\ st.text\_input(\textcolor{stringliteral}{"{}Ticker"{}},\ key=\textcolor{stringliteral}{"{}create\_ticker"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00181}00181\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ col2:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00182}\mbox{\hyperlink{namespaceapp_ad83149a7aa8c09bbf7182da051c2820b}{00182}}\ \ \ \ \ \ \ \ \ \ \ \ \ sector\ =\ st.selectbox(\textcolor{stringliteral}{"{}Sector"{}},\ [\textcolor{stringliteral}{"{}Technology"{}},\ \textcolor{stringliteral}{"{}Finance"{}},\ \textcolor{stringliteral}{"{}Healthcare"{}}],\ key=\textcolor{stringliteral}{"{}create\_sector"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00183}\mbox{\hyperlink{namespaceapp_ae06b31afb34e4a3aea3fd9cfb6fcf163}{00183}}\ \ \ \ \ \ \ \ \ \ \ \ \ create\_date\ =\ st.date\_input(\textcolor{stringliteral}{"{}Date"{}},\ value=date(2026,\ 2,\ 17),\ key=\textcolor{stringliteral}{"{}create\_date"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00184}00184\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00185}\mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{00185}}\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ st.button(\textcolor{stringliteral}{"{}➕\ Create\ Company"{}},\ type=\textcolor{stringliteral}{"{}primary"{}},\ key=\textcolor{stringliteral}{"{}create\_btn"{}})\ \textcolor{keywordflow}{and}\ company\_name\ \textcolor{keywordflow}{and}\ ticker\_input:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00186}\mbox{\hyperlink{namespaceapp_af6ca5586cde01b5ffc7d53a725772684}{00186}}\ \ \ \ \ \ \ \ \ \ \ \ \ payload\ =\ \{}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}companyName"{}}:\ company\_name,}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}ticker"{}}:\ ticker\_input,}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00189}00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}sector"{}}:\ sector}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ \mbox{\hyperlink{namespaceapp_ae350c4308889c8d25da2915b61bbc8da}{api\_request}}(\textcolor{stringliteral}{"{}POST"{}},\ \textcolor{stringliteral}{"{}/companies"{}},\ json=payload)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ res.ok:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.success(\textcolor{stringliteral}{"{}✅\ Company\ created!"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.rerun()}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.error(f\textcolor{stringliteral}{"{}❌\ Create\ failed:\ \{res.error\}"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00197}00197\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00198}00198\ \ \ \ \ \textcolor{comment}{\#\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ UPDATE\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00199}00199\ \ \ \ \ \textcolor{keyword}{with}\ tab2:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00200}00200\ \ \ \ \ \ \ \ \ st.markdown(\textcolor{stringliteral}{"{}\#\#\#\ Update\ Company"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00201}\mbox{\hyperlink{namespaceapp_ab5b53a847f8f20b26390faca3f413f73}{00201}}\ \ \ \ \ \ \ \ \ company\_id\ =\ st.number\_input(\textcolor{stringliteral}{"{}Stock\ ID\ to\ Update"{}},\ min\_value=1,\ step=1,\ key=\textcolor{stringliteral}{"{}update\_id"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00202}\mbox{\hyperlink{namespaceapp_ad6cb6f347e4b598c148b35b360e87777}{00202}}\ \ \ \ \ \ \ \ \ new\_name\ =\ st.text\_input(\textcolor{stringliteral}{"{}New\ Company\ Name\ (optional)"{}},\ key=\textcolor{stringliteral}{"{}update\_name"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00203}\mbox{\hyperlink{namespaceapp_a0022a8f3765b4fc1e995a6dece7ec34c}{00203}}\ \ \ \ \ \ \ \ \ new\_ticker\ =\ st.text\_input(\textcolor{stringliteral}{"{}New\ Ticker\ (optional)"{}},\ key=\textcolor{stringliteral}{"{}update\_ticker"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00204}\mbox{\hyperlink{namespaceapp_aef8b472e3f3629fb1a5796fde79eda5f}{00204}}\ \ \ \ \ \ \ \ \ new\_sector\ =\ st.selectbox(\textcolor{stringliteral}{"{}New\ Sector\ (optional)"{}},\ [\textcolor{stringliteral}{"{}"{}},\ \textcolor{stringliteral}{"{}Technology"{}},\ \textcolor{stringliteral}{"{}Finance"{}},\ \textcolor{stringliteral}{"{}Healthcare"{}}],\ key=\textcolor{stringliteral}{"{}update\_sector"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00205}00205\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00206}00206\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ st.button(\textcolor{stringliteral}{"{}✏️\ Update\ Company"{}},\ type=\textcolor{stringliteral}{"{}primary"{}},\ key=\textcolor{stringliteral}{"{}update\_btn"{}})\ \textcolor{keywordflow}{and}\ new\_name:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ payload\ =\ \{\}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00208}00208\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ new\_name:\ payload[\textcolor{stringliteral}{"{}companyName"{}}]\ =\ new\_name}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00209}00209\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ new\_ticker:\ payload[\textcolor{stringliteral}{"{}ticker"{}}]\ =\ new\_ticker}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ new\_sector:\ payload[\textcolor{stringliteral}{"{}sector"{}}]\ =\ new\_sector}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00211}00211\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00212}00212\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ \mbox{\hyperlink{namespaceapp_ae350c4308889c8d25da2915b61bbc8da}{api\_request}}(\textcolor{stringliteral}{"{}PUT"{}},\ f\textcolor{stringliteral}{"{}/companies/\{company\_id\}"{}},\ json=payload)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00213}00213\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ res.ok:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00214}00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.success(\textcolor{stringliteral}{"{}✅\ Company\ updated!"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00215}00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.rerun()}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00216}00216\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00217}00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.error(f\textcolor{stringliteral}{"{}❌\ Update\ failed:\ \{res.error\}"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00218}00218\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00219}00219\ \ \ \ \ \textcolor{comment}{\#\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ DELETE\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00220}00220\ \ \ \ \ \textcolor{keyword}{with}\ tab3:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00221}00221\ \ \ \ \ \ \ \ \ st.markdown(\textcolor{stringliteral}{"{}\#\#\#\ Delete\ Company"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00222}\mbox{\hyperlink{namespaceapp_aa4be02261e968c8a21341bf031f5c4e9}{00222}}\ \ \ \ \ \ \ \ \ delete\_id\ =\ st.number\_input(\textcolor{stringliteral}{"{}Stock\ ID\ to\ Delete"{}},\ min\_value=1,\ step=1,\ key=\textcolor{stringliteral}{"{}delete\_id"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00223}00223\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00224}00224\ \ \ \ \ \ \ \ \ col1,\ col2\ =\ st.columns([3,\ 1])}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00225}00225\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ col1:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \ \ st.warning(f\textcolor{stringliteral}{"{}⚠️\ This\ will\ delete\ stock\ ID\ **\{delete\_id\}**"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00227}00227\ \ \ \ \ \ \ \ \ \textcolor{keyword}{with}\ col2:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ st.button(\textcolor{stringliteral}{"{}🗑️\ Delete"{}},\ type=\textcolor{stringliteral}{"{}primary"{}},\ use\_container\_width=\textcolor{keyword}{True},\ key=\textcolor{stringliteral}{"{}delete\_btn"{}}):}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00229}00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ \mbox{\hyperlink{namespaceapp_ae350c4308889c8d25da2915b61bbc8da}{api\_request}}(\textcolor{stringliteral}{"{}DELETE"{}},\ f\textcolor{stringliteral}{"{}/companies/\{delete\_id\}"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ res.ok:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.success(\textcolor{stringliteral}{"{}✅\ Company\ deleted!"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00232}00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.rerun()}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00234}00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.error(f\textcolor{stringliteral}{"{}❌\ Delete\ failed:\ \{res.error\}"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00235}00235\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00236}00236\ \textcolor{comment}{\#\ =====================================================}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00237}00237\ \textcolor{comment}{\#\ PAGE:\ Run\ Analytics}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00238}00238\ \textcolor{comment}{\#\ =====================================================}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00239}00239\ \textcolor{keywordflow}{elif}\ page\ ==\ \textcolor{stringliteral}{"{}Run\ Analytics"{}}:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00240}00240\ \ \ \ \ \mbox{\hyperlink{namespaceapp_a92822b0e041df97d1fe2c69dd6347623}{header\_with\_meta}}(\textcolor{stringliteral}{"{}Run\ Analytics"{}},\ \textcolor{stringliteral}{"{}Real\ DB-\/powered\ analytics."{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00242}00242\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ ticker:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00243}00243\ \ \ \ \ \ \ \ \ st.info(\textcolor{stringliteral}{"{}👈\ Select\ a\ ticker\ in\ the\ sidebar."{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00244}00244\ \ \ \ \ \ \ \ \ st.stop()}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00245}00245\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00246}00246\ \ \ \ \ \textcolor{comment}{\#\ Volatility\ (GET\ endpoint)}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00247}00247\ \ \ \ \ col1,\ col2\ =\ st.columns(2)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00248}00248\ \ \ \ \ \textcolor{keyword}{with}\ col1:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00249}00249\ \ \ \ \ \ \ \ \ st.subheader(\textcolor{stringliteral}{"{}📊\ Quick\ Volatility\ Check"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00250}\mbox{\hyperlink{namespaceapp_a9b2e4677998282a4804a21f30f33a7c6}{00250}}\ \ \ \ \ \ \ \ \ iterations\ =\ st.slider(\textcolor{stringliteral}{"{}Iterations"{}},\ 1000,\ 50000,\ 10000)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00251}\mbox{\hyperlink{namespaceapp_a0c530330260b1fcbe2280dafd592871d}{00251}}\ \ \ \ \ \ \ \ \ vol\_res\ =\ \mbox{\hyperlink{namespaceapp_ae350c4308889c8d25da2915b61bbc8da}{api\_request}}(\textcolor{stringliteral}{"{}GET"{}},\ f\textcolor{stringliteral}{"{}/analytics/volatility?ticker=\{ticker\}\&iterations=\{iterations\}"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00252}00252\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00253}00253\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ vol\_res.ok:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00254}\mbox{\hyperlink{namespaceapp_a08b1cf70bd146c36cfad1832a0bd8f93}{00254}}\ \ \ \ \ \ \ \ \ \ \ \ \ vol\_data\ =\ vol\_res.data}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00255}00255\ \ \ \ \ \ \ \ \ \ \ \ \ st.metric(\textcolor{stringliteral}{"{}Volatility"{}},\ f\textcolor{stringliteral}{"{}\{vol\_data.get('forecasted\_volatility',\ 0):.4f\}"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ \ \ st.caption(f\textcolor{stringliteral}{"{}Risk:\ \{vol\_data.get('risk\_level',\ 'N/A')\}\ |\ \{vol\_res.elapsed\_ms\}ms"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00257}00257\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00258}00258\ \ \ \ \ \ \ \ \ \ \ \ \ st.error(vol\_res.error)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00259}00259\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00260}00260\ \ \ \ \ \textcolor{comment}{\#\ Analytics\ POST}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00261}00261\ \ \ \ \ \textcolor{keyword}{with}\ col2:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00262}00262\ \ \ \ \ \ \ \ \ st.subheader(\textcolor{stringliteral}{"{}🔬\ Heavy\ Analysis"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00263}\mbox{\hyperlink{namespaceapp_a483ec6c445cc39ec65172594a4a441b7}{00263}}\ \ \ \ \ \ \ \ \ analysis\_type\ =\ st.selectbox(\textcolor{stringliteral}{"{}Type"{}},\ [\textcolor{stringliteral}{"{}returns"{}},\ \textcolor{stringliteral}{"{}volatility"{}}],\ key=\textcolor{stringliteral}{"{}analysis\_type"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00264}\mbox{\hyperlink{namespaceapp_a7cb7ae776115be503300fccc5973cd99}{00264}}\ \ \ \ \ \ \ \ \ window\ =\ st.number\_input(\textcolor{stringliteral}{"{}Window"{}},\ 10,\ 365,\ 30,\ key=\textcolor{stringliteral}{"{}analysis\_window"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00265}00265\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00266}00266\ \ \ \ \ \ \ \ \ payload\ =\ \{}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00267}00267\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}type"{}}:\ analysis\_type,}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00268}00268\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}params"{}}:\ \{\textcolor{stringliteral}{"{}window"{}}:\ window\}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00269}00269\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00270}00270\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00271}00271\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ st.button(\textcolor{stringliteral}{"{}🚀\ Run\ Analysis"{}},\ type=\textcolor{stringliteral}{"{}primary"{}}):}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00272}00272\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ \mbox{\hyperlink{namespaceapp_ae350c4308889c8d25da2915b61bbc8da}{api\_request}}(\textcolor{stringliteral}{"{}POST"{}},\ f\textcolor{stringliteral}{"{}/analytics/\{ticker\}"{}},\ json=payload,\ timeout=60)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00273}00273\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ res.ok:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00274}00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.success(f\textcolor{stringliteral}{"{}✅\ Done\ in\ \{res.elapsed\_ms\}ms"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.json(res.data)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00276}00276\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00277}00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ st.error(res.error)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00278}00278\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00279}00279\ \ \ \ \ \textcolor{comment}{\#\ VaR}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00280}00280\ \ \ \ \ st.divider()}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00281}00281\ \ \ \ \ st.subheader(\textcolor{stringliteral}{"{}⚠️\ Value\ at\ Risk\ (VaR)"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00282}\mbox{\hyperlink{namespaceapp_a228ba1d86e8c8ac6f575931eee303024}{00282}}\ \ \ \ \ confidence\ =\ st.slider(\textcolor{stringliteral}{"{}Confidence\ Level"{}},\ 0.90,\ 0.99,\ 0.95,\ 0.01)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00283}\mbox{\hyperlink{namespaceapp_a6f9fb42fa1b7a5ae63ebd75aa0b75da3}{00283}}\ \ \ \ \ simulations\ =\ st.slider(\textcolor{stringliteral}{"{}Simulations"{}},\ 10000,\ 100000,\ 50000)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00284}00284\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00285}\mbox{\hyperlink{namespaceapp_ae7e480fef52b2936f40da2a54b0c4778}{00285}}\ \ \ \ \ var\_payload\ =\ \{}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00286}00286\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}ticker"{}}:\ ticker,}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00287}00287\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}confidence"{}}:\ confidence,}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00288}00288\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}simulations"{}}:\ simulations}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00289}00289\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00290}00290\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00291}00291\ \ \ \ \ \textcolor{keywordflow}{if}\ st.button(\textcolor{stringliteral}{"{}Calculate\ VaR"{}},\ type=\textcolor{stringliteral}{"{}primary"{}}):}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00292}00292\ \ \ \ \ \ \ \ \ res\ =\ \mbox{\hyperlink{namespaceapp_ae350c4308889c8d25da2915b61bbc8da}{api\_request}}(\textcolor{stringliteral}{"{}POST"{}},\ \textcolor{stringliteral}{"{}/risk/var"{}},\ json=var\_payload,\ timeout=60)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00293}00293\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ res.ok:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00294}00294\ \ \ \ \ \ \ \ \ \ \ \ \ st.metric(\textcolor{stringliteral}{"{}Value\ at\ Risk"{}},\ f\textcolor{stringliteral}{"{}\{res.data.get('value\_at\_risk',\ 0):.4f\}"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00295}00295\ \ \ \ \ \ \ \ \ \ \ \ \ st.json(res.data)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00296}00296\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00297}00297\ \ \ \ \ \ \ \ \ \ \ \ \ st.error(res.error)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00298}00298\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00299}00299\ \textcolor{comment}{\#\ =====================================================}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00300}00300\ \textcolor{comment}{\#\ PAGE:\ Health\ /\ Debug}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00301}00301\ \textcolor{comment}{\#\ =====================================================}}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00302}00302\ \textcolor{keywordflow}{else}:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00303}00303\ \ \ \ \ \mbox{\hyperlink{namespaceapp_a92822b0e041df97d1fe2c69dd6347623}{header\_with\_meta}}(\textcolor{stringliteral}{"{}Health\ /\ Debug"{}},\ \textcolor{stringliteral}{"{}Backend\ status\ \&\ utilities."{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00304}00304\ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00305}\mbox{\hyperlink{namespaceapp_a6741c59d19870c5f024fd2337c49ce92}{00305}}\ \ \ \ \ col1,\ col2,\ col3\ =\ st.columns(3)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00306}00306\ \ \ \ \ \textcolor{keyword}{with}\ col1:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00307}00307\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ st.button(\textcolor{stringliteral}{"{}❤️\ Health\ Check"{}},\ key=\textcolor{stringliteral}{"{}health"{}}):}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00308}00308\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ \mbox{\hyperlink{namespaceapp_ae350c4308889c8d25da2915b61bbc8da}{api\_request}}(\textcolor{stringliteral}{"{}GET"{}},\ \textcolor{stringliteral}{"{}/health"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00309}00309\ \ \ \ \ \ \ \ \ \ \ \ \ st.success(f\textcolor{stringliteral}{"{}✅\ Healthy\ (\{res.elapsed\_ms\}ms)"{}})\ \textcolor{keywordflow}{if}\ res.ok\ \textcolor{keywordflow}{else}\ st.error(res.error)}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00310}00310\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00311}00311\ \ \ \ \ \textcolor{keyword}{with}\ col2:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00312}00312\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ st.button(\textcolor{stringliteral}{"{}📊\ Load\ Sample\ Data"{}},\ key=\textcolor{stringliteral}{"{}loaddata"{}}):}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00313}00313\ \ \ \ \ \ \ \ \ \ \ \ \ st.info(\textcolor{stringliteral}{"{}Run\ \`{}python\ backend/data/load\_data.py`\ manually"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00314}00314\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00315}00315\ \ \ \ \ \textcolor{keyword}{with}\ col3:}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00316}00316\ \ \ \ \ \ \ \ \ st.caption(\textcolor{stringliteral}{"{}💡\ All\ endpoints\ working?"{}})}
+\DoxyCodeLine{\Hypertarget{app_8py_source_l00317}00317\ \ \ \ \ \ \ \ \ st.caption(\textcolor{stringliteral}{"{}Check\ \`{}/docs`\ in\ browser"{}})}
+
+\end{DoxyCode}

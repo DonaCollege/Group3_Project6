@@ -1,0 +1,48 @@
+\doxysection{companies.\+py File Reference}
+\hypertarget{companies_8py}{}\label{companies_8py}\index{companies.py@{companies.py}}
+
+
+Company-\/related REST endpoints.  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classcompanies_1_1_company_create}{companies.\+Company\+Create}}
+\item 
+class \mbox{\hyperlink{classcompanies_1_1_company_update}{companies.\+Company\+Update}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacecompanies}{companies}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacecompanies_a549d9ff3fd0b438147eee2a9e8f3a56f}{companies.\+search\+\_\+companies}} (str query=Query(default="{}"{}), int limit=20)
+\begin{DoxyCompactList}\small\item\em Search companies by ticker or name. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacecompanies_aabc91e7c4ff0ba699e3208393e07fd43}{companies.\+get\+\_\+company\+\_\+details}} (str ticker)
+\item 
+\mbox{\hyperlink{namespacecompanies_a5df50e224f3b0dc568ee86953bc7fcc4}{companies.\+create\+\_\+company}} (dict payload)
+\item 
+\mbox{\hyperlink{namespacecompanies_ac608b7c6cd256cd6f72f4b9ad4c7894e}{companies.\+update\+\_\+company}} (int stock\+\_\+id, \mbox{\hyperlink{classcompanies_1_1_company_update}{Company\+Update}} update\+\_\+data)
+\item 
+\mbox{\hyperlink{namespacecompanies_a847e5de086b6f818c2f4b1263ec734e6}{companies.\+delete\+\_\+company}} (int stock\+\_\+id)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacecompanies_aa04dd04796c6a8b6b2bbc1b86a023830}{companies.\+router}} = APIRouter(prefix="{}/companies"{}, tags=\mbox{[}"{}Companies"{}\mbox{]})
+\item 
+\mbox{\hyperlink{namespacecompanies_a700d0192ca1963edf47990c5122641ae}{companies.\+db}} = \mbox{\hyperlink{classdata_1_1database_1_1_database}{Database}}()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Company-\/related REST endpoints. 
+
+Provides search and retrieval functionality for stock/company data stored in the SQLite database. Supports GET operations for browsing company data and retrieving historical stock prices. 
+
+Definition in file \mbox{\hyperlink{companies_8py_source}{companies.\+py}}.
+

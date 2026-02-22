@@ -1,0 +1,694 @@
+\doxysection{app Namespace Reference}
+\hypertarget{namespaceapp}{}\label{namespaceapp}\index{app@{app}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classapp_1_1_api_result}{Api\+Result}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classapp_1_1_api_result}{Api\+Result}} \mbox{\hyperlink{namespaceapp_ae350c4308889c8d25da2915b61bbc8da}{api\+\_\+request}} (str method, str path, \texorpdfstring{$\ast$}{*}params=None, json=None, timeout=15)
+\item 
+\mbox{\hyperlink{namespaceapp_a92822b0e041df97d1fe2c69dd6347623}{header\+\_\+with\+\_\+meta}} (str title, str subtitle="{}"{})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceapp_a58cdec70674686cd1e287c7a58de352c}{API\+\_\+\+BASE\+\_\+\+URL}} = os.\+getenv("{}API\+\_\+\+BASE\+\_\+\+URL"{}, "{}http\+://localhost\+:8000"{}).rstrip("{}/"{})
+\item 
+\mbox{\hyperlink{namespaceapp_a2c5b508829b4995a003ebbea7efab85e}{page\+\_\+title}}
+\item 
+\mbox{\hyperlink{namespaceapp_adcd4161b2b197e0cf698a7ae8ca84488}{page\+\_\+icon}}
+\item 
+\mbox{\hyperlink{namespaceapp_a32ab50610df58ba90f40d85d72ba822d}{layout}}
+\item 
+\mbox{\hyperlink{namespaceapp_a0aa9707053e0082ace1eb37e3c5c5359}{page}} = st.\+sidebar.\+radio("{}Go to"{}, \mbox{[}"{}Browse Data"{}, "{}Run Analytics"{}, "{}Health / Debug"{}\mbox{]})
+\item 
+\mbox{\hyperlink{namespaceapp_a8723491d136286dbe8bae531f4ccebae}{ticker}} = st.\+sidebar.\+text\+\_\+input("{}Ticker (e.\+g., AAPL)"{}, value="{}AAPL"{}, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}sidebar\+\_\+ticker"{}).strip().upper()
+\item 
+\mbox{\hyperlink{namespaceapp_a54ccf261d199a2511eab430cace92a16}{start\+\_\+date}} = st.\+sidebar.\+date\+\_\+input("{}Start date"{}, value=date(2025, 1, 1), \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}sidebar\+\_\+start"{})
+\item 
+\mbox{\hyperlink{namespaceapp_aef2fa22ab834a420135968bfd0570901}{end\+\_\+date}} = st.\+sidebar.\+date\+\_\+input("{}End date"{}, value=date(2026, 2, 17), \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}sidebar\+\_\+end"{})
+\item 
+\mbox{\hyperlink{namespaceapp_ab6ba6b345907ce5454fe61a39fb92e59}{query}} = st.\+text\+\_\+input("{}Search companies (\mbox{\hyperlink{namespaceapp_a8723491d136286dbe8bae531f4ccebae}{ticker}} or name)"{}, value="{}"{}, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}search\+\_\+query"{}).strip()
+\item 
+\mbox{\hyperlink{namespaceapp_a469a2a726d946ac15bad00fb6036f4ea}{left}}
+\item 
+\mbox{\hyperlink{namespaceapp_a2654fe61890b34cbb8154752a7f123e6}{right}}
+\item 
+\mbox{\hyperlink{namespaceapp_a4ed05f03a8af2e90d30b706f84c84be4}{vertical\+\_\+alignment}}
+\item 
+\mbox{\hyperlink{namespaceapp_a1aca91a5db83331bd47605bd16b6c974}{do\+\_\+search}} = st.\+button("{}Search"{}, \mbox{\hyperlink{namespaceapp_a41e19bfa088c4003652e0d4a347c5d12}{type}}="{}primary"{}, disabled=(len(\mbox{\hyperlink{namespaceapp_ab6ba6b345907ce5454fe61a39fb92e59}{query}}) == 0), \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}search\+\_\+btn"{})
+\item 
+\mbox{\hyperlink{classapp_1_1_api_result}{Api\+Result}} \mbox{\hyperlink{namespaceapp_aa7bc325e05f4c2538de25bbf88a4b92f}{res}} = \mbox{\hyperlink{namespaceapp_ae350c4308889c8d25da2915b61bbc8da}{api\+\_\+request}}("{}GET"{}, "{}/companies"{}, params=\{"{}query"{}\+: \mbox{\hyperlink{namespaceapp_ab6ba6b345907ce5454fe61a39fb92e59}{query}}\})
+\item 
+\mbox{\hyperlink{classapp_1_1_api_result}{Api\+Result}} \mbox{\hyperlink{namespaceapp_a2ddf46ca95dc001be4d3b012e7aea04b}{items}} = res.\+data.\+get("{}items"{}, \mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{namespaceapp_a0c6ec6d110eec6a716a98ab68529c22c}{use\+\_\+container\+\_\+width}}
+\item 
+\mbox{\hyperlink{namespaceapp_a4f14203a53500e8593c3e2fec9ace1e8}{True}}
+\item 
+\mbox{\hyperlink{namespaceapp_a2b143d591741675b5585ceadbff76a6d}{hide\+\_\+index}}
+\item 
+\mbox{\hyperlink{classapp_1_1_api_result}{Api\+Result}} \mbox{\hyperlink{namespaceapp_a12591c0d46601dd43947363f08dd5815}{details}} = \mbox{\hyperlink{namespaceapp_ae350c4308889c8d25da2915b61bbc8da}{api\+\_\+request}}("{}GET"{}, f"{}/companies/\{\mbox{\hyperlink{namespaceapp_a8723491d136286dbe8bae531f4ccebae}{ticker}}\}"{})
+\item 
+\mbox{\hyperlink{namespaceapp_a450fc58a9866b3d73832ab40377c0b5c}{c1}}
+\item 
+\mbox{\hyperlink{namespaceapp_a5703148a7abdd437640cec462f5a9c15}{c2}}
+\item 
+\mbox{\hyperlink{namespaceapp_a4780b2a69f6bd9c96f5432171abbdae6}{c3}}
+\item 
+\mbox{\hyperlink{classapp_1_1_api_result}{Api\+Result}} \mbox{\hyperlink{namespaceapp_aeceecdac5bab73580eaa6183e6f892f0}{prices}}
+\item 
+\mbox{\hyperlink{classapp_1_1_api_result}{Api\+Result}} \mbox{\hyperlink{namespaceapp_a7d726c5652c758d3b49172abc2c58b2d}{rows}} = prices.\+data.\+get("{}rows"{}, \mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\hyperlink{namespaceapp_aa8d89b300f0f4ff82296af7598d207ff}{dfp}} = pd.\+Data\+Frame(\mbox{\hyperlink{namespaceapp_a7d726c5652c758d3b49172abc2c58b2d}{rows}})
+\item 
+\mbox{\hyperlink{namespaceapp_aed9590489516c13cffd4827d6df765ae}{errors}}
+\item 
+\mbox{\hyperlink{namespaceapp_a837829dda62f12cef2d21f66ecde5f26}{tab1}}
+\item 
+\mbox{\hyperlink{namespaceapp_ab72f29dede04fb9ab9d5d08f5f8faa49}{tab2}}
+\item 
+\mbox{\hyperlink{namespaceapp_a6cbefd4429bfc0cf4ef3aff2de075a0a}{tab3}}
+\item 
+\mbox{\hyperlink{namespaceapp_a7a411ea567ac1ca0c5c461278144a7e1}{col1}}
+\item 
+\mbox{\hyperlink{namespaceapp_a5a5fda4e66a5b10cce19391f477e1298}{col2}}
+\item 
+\mbox{\hyperlink{namespaceapp_a00fdfca3ee92225531a5d68e53bb1605}{company\+\_\+name}} = st.\+text\+\_\+input("{}Company Name"{}, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}create\+\_\+name"{})
+\item 
+\mbox{\hyperlink{namespaceapp_a31921411c4bcf77c7ba7894631b0ca73}{ticker\+\_\+input}} = st.\+text\+\_\+input("{}Ticker"{}, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}create\+\_\+ticker"{})
+\item 
+\mbox{\hyperlink{namespaceapp_ad83149a7aa8c09bbf7182da051c2820b}{sector}} = st.\+selectbox("{}Sector"{}, \mbox{[}"{}Technology"{}, "{}Finance"{}, "{}Healthcare"{}\mbox{]}, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}create\+\_\+sector"{})
+\item 
+\mbox{\hyperlink{namespaceapp_ae06b31afb34e4a3aea3fd9cfb6fcf163}{create\+\_\+date}} = st.\+date\+\_\+input("{}Date"{}, value=date(2026, 2, 17), \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}create\+\_\+date"{})
+\item 
+\mbox{\hyperlink{namespaceapp_a41e19bfa088c4003652e0d4a347c5d12}{type}}
+\item 
+\mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}
+\item 
+dict \mbox{\hyperlink{namespaceapp_af6ca5586cde01b5ffc7d53a725772684}{payload}}
+\item 
+\mbox{\hyperlink{namespaceapp_ab5b53a847f8f20b26390faca3f413f73}{company\+\_\+id}} = st.\+number\+\_\+input("{}Stock ID to Update"{}, min\+\_\+value=1, step=1, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}update\+\_\+id"{})
+\item 
+\mbox{\hyperlink{namespaceapp_ad6cb6f347e4b598c148b35b360e87777}{new\+\_\+name}} = st.\+text\+\_\+input("{}New Company Name (optional)"{}, key="{}update\+\_\+name"{})
+\item 
+\mbox{\hyperlink{namespaceapp_a0022a8f3765b4fc1e995a6dece7ec34c}{new\+\_\+ticker}} = st.\+text\+\_\+input("{}New Ticker (optional)"{}, key="{}update\+\_\+ticker"{})
+\item 
+\mbox{\hyperlink{namespaceapp_aef8b472e3f3629fb1a5796fde79eda5f}{new\+\_\+sector}} = st.\+selectbox("{}New Sector (optional)"{}, \mbox{[}"{}"{}, "{}Technology"{}, "{}Finance"{}, "{}Healthcare"{}\mbox{]}, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}update\+\_\+sector"{})
+\item 
+\mbox{\hyperlink{namespaceapp_aa4be02261e968c8a21341bf031f5c4e9}{delete\+\_\+id}} = st.\+number\+\_\+input("{}Stock ID to Delete"{}, min\+\_\+value=1, step=1, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}delete\+\_\+id"{})
+\item 
+\mbox{\hyperlink{namespaceapp_a9b2e4677998282a4804a21f30f33a7c6}{iterations}} = st.\+slider("{}Iterations"{}, 1000, 50000, 10000)
+\item 
+\mbox{\hyperlink{classapp_1_1_api_result}{Api\+Result}} \mbox{\hyperlink{namespaceapp_a0c530330260b1fcbe2280dafd592871d}{vol\+\_\+res}} = \mbox{\hyperlink{namespaceapp_ae350c4308889c8d25da2915b61bbc8da}{api\+\_\+request}}("{}GET"{}, f"{}/analytics/volatility?\mbox{\hyperlink{namespaceapp_a8723491d136286dbe8bae531f4ccebae}{ticker}}=\{\mbox{\hyperlink{namespaceapp_a8723491d136286dbe8bae531f4ccebae}{ticker}}\}\&\mbox{\hyperlink{namespaceapp_a9b2e4677998282a4804a21f30f33a7c6}{iterations}}=\{\mbox{\hyperlink{namespaceapp_a9b2e4677998282a4804a21f30f33a7c6}{iterations}}\}"{})
+\item 
+\mbox{\hyperlink{classapp_1_1_api_result}{Api\+Result}} \mbox{\hyperlink{namespaceapp_a08b1cf70bd146c36cfad1832a0bd8f93}{vol\+\_\+data}} = vol\+\_\+res.\+data
+\item 
+\mbox{\hyperlink{namespaceapp_a483ec6c445cc39ec65172594a4a441b7}{analysis\+\_\+type}} = st.\+selectbox("{}Type"{}, \mbox{[}"{}returns"{}, "{}volatility"{}\mbox{]}, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}analysis\+\_\+type"{})
+\item 
+\mbox{\hyperlink{namespaceapp_a7cb7ae776115be503300fccc5973cd99}{window}} = st.\+number\+\_\+input("{}Window"{}, 10, 365, 30, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}analysis\+\_\+window"{})
+\item 
+\mbox{\hyperlink{namespaceapp_a228ba1d86e8c8ac6f575931eee303024}{confidence}} = st.\+slider("{}Confidence Level"{}, 0.\+90, 0.\+99, 0.\+95, 0.\+01)
+\item 
+\mbox{\hyperlink{namespaceapp_a6f9fb42fa1b7a5ae63ebd75aa0b75da3}{simulations}} = st.\+slider("{}Simulations"{}, 10000, 100000, 50000)
+\item 
+dict \mbox{\hyperlink{namespaceapp_ae7e480fef52b2936f40da2a54b0c4778}{var\+\_\+payload}}
+\item 
+\mbox{\hyperlink{namespaceapp_a6741c59d19870c5f024fd2337c49ce92}{col3}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceapp_ae350c4308889c8d25da2915b61bbc8da}\label{namespaceapp_ae350c4308889c8d25da2915b61bbc8da} 
+\index{app@{app}!api\_request@{api\_request}}
+\index{api\_request@{api\_request}!app@{app}}
+\doxysubsubsection{\texorpdfstring{api\_request()}{api\_request()}}
+{\footnotesize\ttfamily  \mbox{\hyperlink{classapp_1_1_api_result}{Api\+Result}} app.\+api\+\_\+request (\begin{DoxyParamCaption}\item[{str}]{method,  }\item[{str}]{path,  }\item[{\texorpdfstring{$\ast$}{*}}]{params = {\ttfamily None},  }\item[{}]{json = {\ttfamily None},  }\item[{}]{timeout = {\ttfamily 15} }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00046}{46}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a92822b0e041df97d1fe2c69dd6347623}\label{namespaceapp_a92822b0e041df97d1fe2c69dd6347623} 
+\index{app@{app}!header\_with\_meta@{header\_with\_meta}}
+\index{header\_with\_meta@{header\_with\_meta}!app@{app}}
+\doxysubsubsection{\texorpdfstring{header\_with\_meta()}{header\_with\_meta()}}
+{\footnotesize\ttfamily app.\+header\+\_\+with\+\_\+meta (\begin{DoxyParamCaption}\item[{str}]{title,  }\item[{str }]{subtitle = {\ttfamily "{}"{}} }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00069}{69}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespaceapp_a483ec6c445cc39ec65172594a4a441b7}\label{namespaceapp_a483ec6c445cc39ec65172594a4a441b7} 
+\index{app@{app}!analysis\_type@{analysis\_type}}
+\index{analysis\_type@{analysis\_type}!app@{app}}
+\doxysubsubsection{\texorpdfstring{analysis\_type}{analysis\_type}}
+{\footnotesize\ttfamily app.\+analysis\+\_\+type = st.\+selectbox("{}Type"{}, \mbox{[}"{}returns"{}, "{}volatility"{}\mbox{]}, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}analysis\+\_\+type"{})}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00263}{263}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a58cdec70674686cd1e287c7a58de352c}\label{namespaceapp_a58cdec70674686cd1e287c7a58de352c} 
+\index{app@{app}!API\_BASE\_URL@{API\_BASE\_URL}}
+\index{API\_BASE\_URL@{API\_BASE\_URL}!app@{app}}
+\doxysubsubsection{\texorpdfstring{API\_BASE\_URL}{API\_BASE\_URL}}
+{\footnotesize\ttfamily app.\+API\+\_\+\+BASE\+\_\+\+URL = os.\+getenv("{}API\+\_\+\+BASE\+\_\+\+URL"{}, "{}http\+://localhost\+:8000"{}).rstrip("{}/"{})}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00027}{27}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a450fc58a9866b3d73832ab40377c0b5c}\label{namespaceapp_a450fc58a9866b3d73832ab40377c0b5c} 
+\index{app@{app}!c1@{c1}}
+\index{c1@{c1}!app@{app}}
+\doxysubsubsection{\texorpdfstring{c1}{c1}}
+{\footnotesize\ttfamily app.\+c1}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00130}{130}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a5703148a7abdd437640cec462f5a9c15}\label{namespaceapp_a5703148a7abdd437640cec462f5a9c15} 
+\index{app@{app}!c2@{c2}}
+\index{c2@{c2}!app@{app}}
+\doxysubsubsection{\texorpdfstring{c2}{c2}}
+{\footnotesize\ttfamily app.\+c2}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00130}{130}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a4780b2a69f6bd9c96f5432171abbdae6}\label{namespaceapp_a4780b2a69f6bd9c96f5432171abbdae6} 
+\index{app@{app}!c3@{c3}}
+\index{c3@{c3}!app@{app}}
+\doxysubsubsection{\texorpdfstring{c3}{c3}}
+{\footnotesize\ttfamily app.\+c3}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00130}{130}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a7a411ea567ac1ca0c5c461278144a7e1}\label{namespaceapp_a7a411ea567ac1ca0c5c461278144a7e1} 
+\index{app@{app}!col1@{col1}}
+\index{col1@{col1}!app@{app}}
+\doxysubsubsection{\texorpdfstring{col1}{col1}}
+{\footnotesize\ttfamily app.\+col1}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00177}{177}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a5a5fda4e66a5b10cce19391f477e1298}\label{namespaceapp_a5a5fda4e66a5b10cce19391f477e1298} 
+\index{app@{app}!col2@{col2}}
+\index{col2@{col2}!app@{app}}
+\doxysubsubsection{\texorpdfstring{col2}{col2}}
+{\footnotesize\ttfamily app.\+col2}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00177}{177}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a6741c59d19870c5f024fd2337c49ce92}\label{namespaceapp_a6741c59d19870c5f024fd2337c49ce92} 
+\index{app@{app}!col3@{col3}}
+\index{col3@{col3}!app@{app}}
+\doxysubsubsection{\texorpdfstring{col3}{col3}}
+{\footnotesize\ttfamily app.\+col3}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00305}{305}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_ab5b53a847f8f20b26390faca3f413f73}\label{namespaceapp_ab5b53a847f8f20b26390faca3f413f73} 
+\index{app@{app}!company\_id@{company\_id}}
+\index{company\_id@{company\_id}!app@{app}}
+\doxysubsubsection{\texorpdfstring{company\_id}{company\_id}}
+{\footnotesize\ttfamily app.\+company\+\_\+id = st.\+number\+\_\+input("{}Stock ID to Update"{}, min\+\_\+value=1, step=1, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}update\+\_\+id"{})}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00201}{201}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a00fdfca3ee92225531a5d68e53bb1605}\label{namespaceapp_a00fdfca3ee92225531a5d68e53bb1605} 
+\index{app@{app}!company\_name@{company\_name}}
+\index{company\_name@{company\_name}!app@{app}}
+\doxysubsubsection{\texorpdfstring{company\_name}{company\_name}}
+{\footnotesize\ttfamily app.\+company\+\_\+name = st.\+text\+\_\+input("{}Company Name"{}, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}create\+\_\+name"{})}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00179}{179}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a228ba1d86e8c8ac6f575931eee303024}\label{namespaceapp_a228ba1d86e8c8ac6f575931eee303024} 
+\index{app@{app}!confidence@{confidence}}
+\index{confidence@{confidence}!app@{app}}
+\doxysubsubsection{\texorpdfstring{confidence}{confidence}}
+{\footnotesize\ttfamily app.\+confidence = st.\+slider("{}Confidence Level"{}, 0.\+90, 0.\+99, 0.\+95, 0.\+01)}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00282}{282}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_ae06b31afb34e4a3aea3fd9cfb6fcf163}\label{namespaceapp_ae06b31afb34e4a3aea3fd9cfb6fcf163} 
+\index{app@{app}!create\_date@{create\_date}}
+\index{create\_date@{create\_date}!app@{app}}
+\doxysubsubsection{\texorpdfstring{create\_date}{create\_date}}
+{\footnotesize\ttfamily app.\+create\+\_\+date = st.\+date\+\_\+input("{}Date"{}, value=date(2026, 2, 17), \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}create\+\_\+date"{})}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00183}{183}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_aa4be02261e968c8a21341bf031f5c4e9}\label{namespaceapp_aa4be02261e968c8a21341bf031f5c4e9} 
+\index{app@{app}!delete\_id@{delete\_id}}
+\index{delete\_id@{delete\_id}!app@{app}}
+\doxysubsubsection{\texorpdfstring{delete\_id}{delete\_id}}
+{\footnotesize\ttfamily app.\+delete\+\_\+id = st.\+number\+\_\+input("{}Stock ID to Delete"{}, min\+\_\+value=1, step=1, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}delete\+\_\+id"{})}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00222}{222}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a12591c0d46601dd43947363f08dd5815}\label{namespaceapp_a12591c0d46601dd43947363f08dd5815} 
+\index{app@{app}!details@{details}}
+\index{details@{details}!app@{app}}
+\doxysubsubsection{\texorpdfstring{details}{details}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classapp_1_1_api_result}{Api\+Result}} app.\+details = \mbox{\hyperlink{namespaceapp_ae350c4308889c8d25da2915b61bbc8da}{api\+\_\+request}}("{}GET"{}, f"{}/companies/\{\mbox{\hyperlink{namespaceapp_a8723491d136286dbe8bae531f4ccebae}{ticker}}\}"{})}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00127}{127}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_aa8d89b300f0f4ff82296af7598d207ff}\label{namespaceapp_aa8d89b300f0f4ff82296af7598d207ff} 
+\index{app@{app}!dfp@{dfp}}
+\index{dfp@{dfp}!app@{app}}
+\doxysubsubsection{\texorpdfstring{dfp}{dfp}}
+{\footnotesize\ttfamily app.\+dfp = pd.\+Data\+Frame(\mbox{\hyperlink{namespaceapp_a7d726c5652c758d3b49172abc2c58b2d}{rows}})}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00154}{154}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a1aca91a5db83331bd47605bd16b6c974}\label{namespaceapp_a1aca91a5db83331bd47605bd16b6c974} 
+\index{app@{app}!do\_search@{do\_search}}
+\index{do\_search@{do\_search}!app@{app}}
+\doxysubsubsection{\texorpdfstring{do\_search}{do\_search}}
+{\footnotesize\ttfamily app.\+do\+\_\+search = st.\+button("{}Search"{}, \mbox{\hyperlink{namespaceapp_a41e19bfa088c4003652e0d4a347c5d12}{type}}="{}primary"{}, disabled=(len(\mbox{\hyperlink{namespaceapp_ab6ba6b345907ce5454fe61a39fb92e59}{query}}) == 0), \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}search\+\_\+btn"{})}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00106}{106}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_aef2fa22ab834a420135968bfd0570901}\label{namespaceapp_aef2fa22ab834a420135968bfd0570901} 
+\index{app@{app}!end\_date@{end\_date}}
+\index{end\_date@{end\_date}!app@{app}}
+\doxysubsubsection{\texorpdfstring{end\_date}{end\_date}}
+{\footnotesize\ttfamily app.\+end\+\_\+date = st.\+sidebar.\+date\+\_\+input("{}End date"{}, value=date(2026, 2, 17), \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}sidebar\+\_\+end"{})}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00091}{91}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_aed9590489516c13cffd4827d6df765ae}\label{namespaceapp_aed9590489516c13cffd4827d6df765ae} 
+\index{app@{app}!errors@{errors}}
+\index{errors@{errors}!app@{app}}
+\doxysubsubsection{\texorpdfstring{errors}{errors}}
+{\footnotesize\ttfamily app.\+errors}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00158}{158}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a2b143d591741675b5585ceadbff76a6d}\label{namespaceapp_a2b143d591741675b5585ceadbff76a6d} 
+\index{app@{app}!hide\_index@{hide\_index}}
+\index{hide\_index@{hide\_index}!app@{app}}
+\doxysubsubsection{\texorpdfstring{hide\_index}{hide\_index}}
+{\footnotesize\ttfamily app.\+hide\+\_\+index}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00117}{117}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a2ddf46ca95dc001be4d3b012e7aea04b}\label{namespaceapp_a2ddf46ca95dc001be4d3b012e7aea04b} 
+\index{app@{app}!items@{items}}
+\index{items@{items}!app@{app}}
+\doxysubsubsection{\texorpdfstring{items}{items}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classapp_1_1_api_result}{Api\+Result}} app.\+items = res.\+data.\+get("{}items"{}, \mbox{[}$\,$\mbox{]})}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00114}{114}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a9b2e4677998282a4804a21f30f33a7c6}\label{namespaceapp_a9b2e4677998282a4804a21f30f33a7c6} 
+\index{app@{app}!iterations@{iterations}}
+\index{iterations@{iterations}!app@{app}}
+\doxysubsubsection{\texorpdfstring{iterations}{iterations}}
+{\footnotesize\ttfamily app.\+iterations = st.\+slider("{}Iterations"{}, 1000, 50000, 10000)}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00250}{250}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_aa246a585c039aa2310472ad291d05608}\label{namespaceapp_aa246a585c039aa2310472ad291d05608} 
+\index{app@{app}!key@{key}}
+\index{key@{key}!app@{app}}
+\doxysubsubsection{\texorpdfstring{key}{key}}
+{\footnotesize\ttfamily app.\+key}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00185}{185}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a32ab50610df58ba90f40d85d72ba822d}\label{namespaceapp_a32ab50610df58ba90f40d85d72ba822d} 
+\index{app@{app}!layout@{layout}}
+\index{layout@{layout}!app@{app}}
+\doxysubsubsection{\texorpdfstring{layout}{layout}}
+{\footnotesize\ttfamily app.\+layout}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00032}{32}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a469a2a726d946ac15bad00fb6036f4ea}\label{namespaceapp_a469a2a726d946ac15bad00fb6036f4ea} 
+\index{app@{app}!left@{left}}
+\index{left@{left}!app@{app}}
+\doxysubsubsection{\texorpdfstring{left}{left}}
+{\footnotesize\ttfamily app.\+left}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00104}{104}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_ad6cb6f347e4b598c148b35b360e87777}\label{namespaceapp_ad6cb6f347e4b598c148b35b360e87777} 
+\index{app@{app}!new\_name@{new\_name}}
+\index{new\_name@{new\_name}!app@{app}}
+\doxysubsubsection{\texorpdfstring{new\_name}{new\_name}}
+{\footnotesize\ttfamily app.\+new\+\_\+name = st.\+text\+\_\+input("{}New Company Name (optional)"{}, key="{}update\+\_\+name"{})}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00202}{202}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_aef8b472e3f3629fb1a5796fde79eda5f}\label{namespaceapp_aef8b472e3f3629fb1a5796fde79eda5f} 
+\index{app@{app}!new\_sector@{new\_sector}}
+\index{new\_sector@{new\_sector}!app@{app}}
+\doxysubsubsection{\texorpdfstring{new\_sector}{new\_sector}}
+{\footnotesize\ttfamily app.\+new\+\_\+sector = st.\+selectbox("{}New Sector (optional)"{}, \mbox{[}"{}"{}, "{}Technology"{}, "{}Finance"{}, "{}Healthcare"{}\mbox{]}, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}update\+\_\+sector"{})}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00204}{204}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a0022a8f3765b4fc1e995a6dece7ec34c}\label{namespaceapp_a0022a8f3765b4fc1e995a6dece7ec34c} 
+\index{app@{app}!new\_ticker@{new\_ticker}}
+\index{new\_ticker@{new\_ticker}!app@{app}}
+\doxysubsubsection{\texorpdfstring{new\_ticker}{new\_ticker}}
+{\footnotesize\ttfamily app.\+new\+\_\+ticker = st.\+text\+\_\+input("{}New Ticker (optional)"{}, key="{}update\+\_\+ticker"{})}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00203}{203}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a0aa9707053e0082ace1eb37e3c5c5359}\label{namespaceapp_a0aa9707053e0082ace1eb37e3c5c5359} 
+\index{app@{app}!page@{page}}
+\index{page@{page}!app@{app}}
+\doxysubsubsection{\texorpdfstring{page}{page}}
+{\footnotesize\ttfamily app.\+page = st.\+sidebar.\+radio("{}Go to"{}, \mbox{[}"{}Browse Data"{}, "{}Run Analytics"{}, "{}Health / Debug"{}\mbox{]})}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00084}{84}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_adcd4161b2b197e0cf698a7ae8ca84488}\label{namespaceapp_adcd4161b2b197e0cf698a7ae8ca84488} 
+\index{app@{app}!page\_icon@{page\_icon}}
+\index{page\_icon@{page\_icon}!app@{app}}
+\doxysubsubsection{\texorpdfstring{page\_icon}{page\_icon}}
+{\footnotesize\ttfamily app.\+page\+\_\+icon}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00031}{31}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a2c5b508829b4995a003ebbea7efab85e}\label{namespaceapp_a2c5b508829b4995a003ebbea7efab85e} 
+\index{app@{app}!page\_title@{page\_title}}
+\index{page\_title@{page\_title}!app@{app}}
+\doxysubsubsection{\texorpdfstring{page\_title}{page\_title}}
+{\footnotesize\ttfamily app.\+page\+\_\+title}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00030}{30}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_af6ca5586cde01b5ffc7d53a725772684}\label{namespaceapp_af6ca5586cde01b5ffc7d53a725772684} 
+\index{app@{app}!payload@{payload}}
+\index{payload@{payload}!app@{app}}
+\doxysubsubsection{\texorpdfstring{payload}{payload}}
+{\footnotesize\ttfamily dict app.\+payload}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}companyName"{}}:\ company\_name,}
+\DoxyCodeLine{00003\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}ticker"{}}:\ ticker\_input,}
+\DoxyCodeLine{00004\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}sector"{}}:\ sector}
+\DoxyCodeLine{00005\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00186}{186}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_aeceecdac5bab73580eaa6183e6f892f0}\label{namespaceapp_aeceecdac5bab73580eaa6183e6f892f0} 
+\index{app@{app}!prices@{prices}}
+\index{prices@{prices}!app@{app}}
+\doxysubsubsection{\texorpdfstring{prices}{prices}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classapp_1_1_api_result}{Api\+Result}} app.\+prices}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ api\_request(}
+\DoxyCodeLine{00002\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}GET"{}},}
+\DoxyCodeLine{00003\ \ \ \ \ \ \ \ \ \ \ \ \ f\textcolor{stringliteral}{"{}/prices/\{ticker\}"{}},}
+\DoxyCodeLine{00004\ \ \ \ \ \ \ \ \ \ \ \ \ params=\{\textcolor{stringliteral}{"{}start"{}}:\ str(start\_date),\ \textcolor{stringliteral}{"{}end"{}}:\ str(end\_date)\},}
+\DoxyCodeLine{00005\ \ \ \ \ \ \ \ \ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00145}{145}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_ab6ba6b345907ce5454fe61a39fb92e59}\label{namespaceapp_ab6ba6b345907ce5454fe61a39fb92e59} 
+\index{app@{app}!query@{query}}
+\index{query@{query}!app@{app}}
+\doxysubsubsection{\texorpdfstring{query}{query}}
+{\footnotesize\ttfamily app.\+query = st.\+text\+\_\+input("{}Search companies (\mbox{\hyperlink{namespaceapp_a8723491d136286dbe8bae531f4ccebae}{ticker}} or name)"{}, value="{}"{}, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}search\+\_\+query"{}).strip()}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00102}{102}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_aa7bc325e05f4c2538de25bbf88a4b92f}\label{namespaceapp_aa7bc325e05f4c2538de25bbf88a4b92f} 
+\index{app@{app}!res@{res}}
+\index{res@{res}!app@{app}}
+\doxysubsubsection{\texorpdfstring{res}{res}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classapp_1_1_api_result}{Api\+Result}} app.\+res = \mbox{\hyperlink{namespaceapp_ae350c4308889c8d25da2915b61bbc8da}{api\+\_\+request}}("{}GET"{}, "{}/companies"{}, params=\{"{}query"{}\+: \mbox{\hyperlink{namespaceapp_ab6ba6b345907ce5454fe61a39fb92e59}{query}}\})}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00111}{111}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a2654fe61890b34cbb8154752a7f123e6}\label{namespaceapp_a2654fe61890b34cbb8154752a7f123e6} 
+\index{app@{app}!right@{right}}
+\index{right@{right}!app@{app}}
+\doxysubsubsection{\texorpdfstring{right}{right}}
+{\footnotesize\ttfamily app.\+right}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00104}{104}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a7d726c5652c758d3b49172abc2c58b2d}\label{namespaceapp_a7d726c5652c758d3b49172abc2c58b2d} 
+\index{app@{app}!rows@{rows}}
+\index{rows@{rows}!app@{app}}
+\doxysubsubsection{\texorpdfstring{rows}{rows}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classapp_1_1_api_result}{Api\+Result}} app.\+rows = prices.\+data.\+get("{}rows"{}, \mbox{[}$\,$\mbox{]})}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00152}{152}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_ad83149a7aa8c09bbf7182da051c2820b}\label{namespaceapp_ad83149a7aa8c09bbf7182da051c2820b} 
+\index{app@{app}!sector@{sector}}
+\index{sector@{sector}!app@{app}}
+\doxysubsubsection{\texorpdfstring{sector}{sector}}
+{\footnotesize\ttfamily app.\+sector = st.\+selectbox("{}Sector"{}, \mbox{[}"{}Technology"{}, "{}Finance"{}, "{}Healthcare"{}\mbox{]}, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}create\+\_\+sector"{})}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00182}{182}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a6f9fb42fa1b7a5ae63ebd75aa0b75da3}\label{namespaceapp_a6f9fb42fa1b7a5ae63ebd75aa0b75da3} 
+\index{app@{app}!simulations@{simulations}}
+\index{simulations@{simulations}!app@{app}}
+\doxysubsubsection{\texorpdfstring{simulations}{simulations}}
+{\footnotesize\ttfamily app.\+simulations = st.\+slider("{}Simulations"{}, 10000, 100000, 50000)}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00283}{283}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a54ccf261d199a2511eab430cace92a16}\label{namespaceapp_a54ccf261d199a2511eab430cace92a16} 
+\index{app@{app}!start\_date@{start\_date}}
+\index{start\_date@{start\_date}!app@{app}}
+\doxysubsubsection{\texorpdfstring{start\_date}{start\_date}}
+{\footnotesize\ttfamily app.\+start\+\_\+date = st.\+sidebar.\+date\+\_\+input("{}Start date"{}, value=date(2025, 1, 1), \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}sidebar\+\_\+start"{})}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00090}{90}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a837829dda62f12cef2d21f66ecde5f26}\label{namespaceapp_a837829dda62f12cef2d21f66ecde5f26} 
+\index{app@{app}!tab1@{tab1}}
+\index{tab1@{tab1}!app@{app}}
+\doxysubsubsection{\texorpdfstring{tab1}{tab1}}
+{\footnotesize\ttfamily app.\+tab1}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00172}{172}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_ab72f29dede04fb9ab9d5d08f5f8faa49}\label{namespaceapp_ab72f29dede04fb9ab9d5d08f5f8faa49} 
+\index{app@{app}!tab2@{tab2}}
+\index{tab2@{tab2}!app@{app}}
+\doxysubsubsection{\texorpdfstring{tab2}{tab2}}
+{\footnotesize\ttfamily app.\+tab2}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00172}{172}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a6cbefd4429bfc0cf4ef3aff2de075a0a}\label{namespaceapp_a6cbefd4429bfc0cf4ef3aff2de075a0a} 
+\index{app@{app}!tab3@{tab3}}
+\index{tab3@{tab3}!app@{app}}
+\doxysubsubsection{\texorpdfstring{tab3}{tab3}}
+{\footnotesize\ttfamily app.\+tab3}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00172}{172}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a8723491d136286dbe8bae531f4ccebae}\label{namespaceapp_a8723491d136286dbe8bae531f4ccebae} 
+\index{app@{app}!ticker@{ticker}}
+\index{ticker@{ticker}!app@{app}}
+\doxysubsubsection{\texorpdfstring{ticker}{ticker}}
+{\footnotesize\ttfamily app.\+ticker = st.\+sidebar.\+text\+\_\+input("{}Ticker (e.\+g., AAPL)"{}, value="{}AAPL"{}, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}sidebar\+\_\+ticker"{}).strip().upper()}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00089}{89}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a31921411c4bcf77c7ba7894631b0ca73}\label{namespaceapp_a31921411c4bcf77c7ba7894631b0ca73} 
+\index{app@{app}!ticker\_input@{ticker\_input}}
+\index{ticker\_input@{ticker\_input}!app@{app}}
+\doxysubsubsection{\texorpdfstring{ticker\_input}{ticker\_input}}
+{\footnotesize\ttfamily app.\+ticker\+\_\+input = st.\+text\+\_\+input("{}Ticker"{}, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}create\+\_\+ticker"{})}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00180}{180}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a4f14203a53500e8593c3e2fec9ace1e8}\label{namespaceapp_a4f14203a53500e8593c3e2fec9ace1e8} 
+\index{app@{app}!True@{True}}
+\index{True@{True}!app@{app}}
+\doxysubsubsection{\texorpdfstring{True}{True}}
+{\footnotesize\ttfamily app.\+True}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00117}{117}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a41e19bfa088c4003652e0d4a347c5d12}\label{namespaceapp_a41e19bfa088c4003652e0d4a347c5d12} 
+\index{app@{app}!type@{type}}
+\index{type@{type}!app@{app}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily app.\+type}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00185}{185}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a0c6ec6d110eec6a716a98ab68529c22c}\label{namespaceapp_a0c6ec6d110eec6a716a98ab68529c22c} 
+\index{app@{app}!use\_container\_width@{use\_container\_width}}
+\index{use\_container\_width@{use\_container\_width}!app@{app}}
+\doxysubsubsection{\texorpdfstring{use\_container\_width}{use\_container\_width}}
+{\footnotesize\ttfamily app.\+use\+\_\+container\+\_\+width}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00117}{117}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_ae7e480fef52b2936f40da2a54b0c4778}\label{namespaceapp_ae7e480fef52b2936f40da2a54b0c4778} 
+\index{app@{app}!var\_payload@{var\_payload}}
+\index{var\_payload@{var\_payload}!app@{app}}
+\doxysubsubsection{\texorpdfstring{var\_payload}{var\_payload}}
+{\footnotesize\ttfamily dict app.\+var\+\_\+payload}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}ticker"{}}:\ ticker,}
+\DoxyCodeLine{00003\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}confidence"{}}:\ confidence,}
+\DoxyCodeLine{00004\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}simulations"{}}:\ simulations}
+\DoxyCodeLine{00005\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00285}{285}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a4ed05f03a8af2e90d30b706f84c84be4}\label{namespaceapp_a4ed05f03a8af2e90d30b706f84c84be4} 
+\index{app@{app}!vertical\_alignment@{vertical\_alignment}}
+\index{vertical\_alignment@{vertical\_alignment}!app@{app}}
+\doxysubsubsection{\texorpdfstring{vertical\_alignment}{vertical\_alignment}}
+{\footnotesize\ttfamily app.\+vertical\+\_\+alignment}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00104}{104}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a08b1cf70bd146c36cfad1832a0bd8f93}\label{namespaceapp_a08b1cf70bd146c36cfad1832a0bd8f93} 
+\index{app@{app}!vol\_data@{vol\_data}}
+\index{vol\_data@{vol\_data}!app@{app}}
+\doxysubsubsection{\texorpdfstring{vol\_data}{vol\_data}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classapp_1_1_api_result}{Api\+Result}} app.\+vol\+\_\+data = vol\+\_\+res.\+data}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00254}{254}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a0c530330260b1fcbe2280dafd592871d}\label{namespaceapp_a0c530330260b1fcbe2280dafd592871d} 
+\index{app@{app}!vol\_res@{vol\_res}}
+\index{vol\_res@{vol\_res}!app@{app}}
+\doxysubsubsection{\texorpdfstring{vol\_res}{vol\_res}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classapp_1_1_api_result}{Api\+Result}} app.\+vol\+\_\+res = \mbox{\hyperlink{namespaceapp_ae350c4308889c8d25da2915b61bbc8da}{api\+\_\+request}}("{}GET"{}, f"{}/analytics/volatility?\mbox{\hyperlink{namespaceapp_a8723491d136286dbe8bae531f4ccebae}{ticker}}=\{\mbox{\hyperlink{namespaceapp_a8723491d136286dbe8bae531f4ccebae}{ticker}}\}\&\mbox{\hyperlink{namespaceapp_a9b2e4677998282a4804a21f30f33a7c6}{iterations}}=\{\mbox{\hyperlink{namespaceapp_a9b2e4677998282a4804a21f30f33a7c6}{iterations}}\}"{})}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00251}{251}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+
+\Hypertarget{namespaceapp_a7cb7ae776115be503300fccc5973cd99}\label{namespaceapp_a7cb7ae776115be503300fccc5973cd99} 
+\index{app@{app}!window@{window}}
+\index{window@{window}!app@{app}}
+\doxysubsubsection{\texorpdfstring{window}{window}}
+{\footnotesize\ttfamily app.\+window = st.\+number\+\_\+input("{}Window"{}, 10, 365, 30, \mbox{\hyperlink{namespaceapp_aa246a585c039aa2310472ad291d05608}{key}}="{}analysis\+\_\+window"{})}
+
+
+
+Definition at line \mbox{\hyperlink{app_8py_source_l00264}{264}} of file \mbox{\hyperlink{app_8py_source}{app.\+py}}.
+

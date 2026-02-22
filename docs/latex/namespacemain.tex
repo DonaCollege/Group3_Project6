@@ -1,0 +1,44 @@
+\doxysection{main Namespace Reference}
+\hypertarget{namespacemain}{}\label{namespacemain}\index{main@{main}}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacemain_a5fa94f0581009434c7a63791944d6ff4}{app}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}@file main.py
+@brief Main FastAPI application entry point
+
+Central application router that mounts all API modules (health, companies, analytics, 
+risk, prices). Provides OpenAPI/Swagger documentation and health monitoring for 
+performance testing baseline (SYS-010, SV-FR-010).
+
+@see SDD Section 3 - API Backend Services Module
+@author Group 3 - CSCN73060
+@version 1.0
+@date 2026
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacemain_a5fa94f0581009434c7a63791944d6ff4}\label{namespacemain_a5fa94f0581009434c7a63791944d6ff4} 
+\index{main@{main}!app@{app}}
+\index{app@{app}!main@{main}}
+\doxysubsubsection{\texorpdfstring{app}{app}}
+{\footnotesize\ttfamily main.\+app}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ FastAPI(}
+\DoxyCodeLine{00002\ \ \ \ \ title=\textcolor{stringliteral}{"{}Financial\ Performance\ \&\ Risk\ API"{}},}
+\DoxyCodeLine{00003\ \ \ \ \ description=\textcolor{stringliteral}{"{}API\ designed\ for\ load,\ stress,\ and\ performance\ testing"{}},}
+\DoxyCodeLine{00004\ \ \ \ \ version=\textcolor{stringliteral}{"{}1.0"{}}}
+\DoxyCodeLine{00005\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{main_8py_source_l00021}{21}} of file \mbox{\hyperlink{main_8py_source}{main.\+py}}.
+

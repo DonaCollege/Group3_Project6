@@ -17,7 +17,14 @@
 #         "value_at_risk": round(simulated_losses[index], 4)
 #     }
 
-
+##
+# @file analytics_service.py
+# @brief Business logic for analytics computations.
+#
+# @details
+# Contains CPU-heavy functions used to simulate analytical workloads
+# for performance and stress testing experiments.
+##
 from data.database import Database
 import numpy as np
 from backend.schemas.risk import VaRRequest

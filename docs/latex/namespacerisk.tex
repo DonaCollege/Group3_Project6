@@ -1,0 +1,77 @@
+\doxysection{risk Namespace Reference}
+\hypertarget{namespacerisk}{}\label{namespacerisk}\index{risk@{risk}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacerisk_a1516ac553e91a336c501869a36f20a82}{get\+\_\+var}} (Va\+RRequest request)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacerisk_af1c8b46ed0495e0a2b0a36cf5f852410}{router}} = APIRouter(prefix="{}/risk"{}, tags=\mbox{[}"{}Risk"{}\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Risk Analysis API Routes
+
+Architecture Overview:
+- This module defines endpoints related to financial risk analysis.
+- It represents the API (presentation) layer for risk computations.
+- Routes in this file delegate all heavy logic to the service layer.
+
+Design Rationale:
+- Risk calculations are computationally expensive by nature.
+- This endpoint is designed to simulate real-world financial risk workloads.
+- The API surface is kept stable while internal logic evolves.
+
+Performance & Testing Notes:
+- This endpoint is intentionally designed to be heavy under load.
+- Computational complexity is controlled via request parameters.
+- Used as a primary target for JMeter performance and stress testing.
+
+Team Notes:
+- API routes are owned and maintained by Dona.
+- Database-backed aggregation and optimization will be implemented later.
+- Route signatures should not be modified without team coordination.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacerisk_a1516ac553e91a336c501869a36f20a82}\label{namespacerisk_a1516ac553e91a336c501869a36f20a82} 
+\index{risk@{risk}!get\_var@{get\_var}}
+\index{get\_var@{get\_var}!risk@{risk}}
+\doxysubsubsection{\texorpdfstring{get\_var()}{get\_var()}}
+{\footnotesize\ttfamily risk.\+get\+\_\+var (\begin{DoxyParamCaption}\item[{Va\+RRequest}]{request }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Architectural Notes:
+- Demonstrates a compute-intensive analytical operation using HTTP POST.
+- Uses request body validation via Pydantic schemas.
+- Abstracts all business logic into the service layer.
+
+Performance Notes:
+- Designed to scale computational cost with input parameters.
+- Used by JMeter to evaluate system behavior under concurrent load.
+- Serves as a baseline before performance optimizations are applied.
+
+Future Integration:
+- Will aggregate historical price data from the database.
+- Will support optimized queries and caching strategies.
+\end{DoxyVerb}
+ 
+
+Definition at line \mbox{\hyperlink{api_2risk_8py_source_l00043}{43}} of file \mbox{\hyperlink{api_2risk_8py_source}{api/risk.\+py}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacerisk_af1c8b46ed0495e0a2b0a36cf5f852410}\label{namespacerisk_af1c8b46ed0495e0a2b0a36cf5f852410} 
+\index{risk@{risk}!router@{router}}
+\index{router@{router}!risk@{risk}}
+\doxysubsubsection{\texorpdfstring{router}{router}}
+{\footnotesize\ttfamily risk.\+router = APIRouter(prefix="{}/risk"{}, tags=\mbox{[}"{}Risk"{}\mbox{]})}
+
+
+
+Definition at line \mbox{\hyperlink{api_2risk_8py_source_l00031}{31}} of file \mbox{\hyperlink{api_2risk_8py_source}{api/risk.\+py}}.
+

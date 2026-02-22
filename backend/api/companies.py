@@ -51,7 +51,15 @@
 #         ]
 #     }
 
-
+##
+# @file companies.py
+# @brief Company-related REST endpoints.
+#
+# @details
+# Provides search and retrieval functionality for stock/company data
+# stored in the SQLite database. Supports GET operations for browsing
+# company data and retrieving historical stock prices.
+##
 from fastapi import APIRouter, Query, HTTPException
 from data.database import Database
 from pydantic import BaseModel
@@ -71,6 +79,13 @@ class CompanyUpdate(BaseModel):
 
 @router.get("/")
 def search_companies(query: str = Query(default=""), limit: int = 20):
+    ##
+    # @brief Search companies by ticker or name.
+    #
+    # @param query Search string for filtering company names.
+    # @param limit Maximum number of records to return.
+    # @return JSON list of matching companies.
+    ##
     rows = db.get_all_stocks(limit)
     results = []
     for row in rows:

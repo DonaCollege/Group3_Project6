@@ -1,0 +1,32 @@
+\chapter{Group3\+\_\+\+Project6}
+\hypertarget{md__r_e_a_d_m_e}{}\label{md__r_e_a_d_m_e}\index{Group3\_Project6@{Group3\_Project6}}
+\label{md__r_e_a_d_m_e_autotoc_md0}%
+\Hypertarget{md__r_e_a_d_m_e_autotoc_md0}%
+ \hypertarget{md__r_e_a_d_m_e_autotoc_md1}{}\doxysection{\texorpdfstring{Architecture Snapshot – Financial Performance System}{Architecture Snapshot – Financial Performance System}}\label{md__r_e_a_d_m_e_autotoc_md1}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md2}{}\doxysubsection{\texorpdfstring{High-\/\+Level Overview}{High-\/\+Level Overview}}\label{md__r_e_a_d_m_e_autotoc_md2}
+Client (JMeter / UI) \texorpdfstring{$\vert$}{|} v Fast\+API (HTTP / REST) \texorpdfstring{$\vert$}{|} v Service Layer \texorpdfstring{$\vert$}{|} v Database (SQLite )\hypertarget{md__r_e_a_d_m_e_autotoc_md3}{}\doxysubsection{\texorpdfstring{Key Design Decisions}{Key Design Decisions}}\label{md__r_e_a_d_m_e_autotoc_md3}
+
+\begin{DoxyItemize}
+\item Fast\+API used to simplify REST routing and Open\+API generation
+\item Clear separation between\+:
+\begin{DoxyItemize}
+\item API layer (routes \& HTTP concerns)
+\item Service layer (business logic \& computation)
+\item Data layer (DB – to be implemented)
+\end{DoxyItemize}
+\item Designed specifically to support performance and load testing
+\item Includes intentionally heavy endpoints (CPU \& payload)
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md4}{}\doxysubsection{\texorpdfstring{Load \& Stress Strategy}{Load \& Stress Strategy}}\label{md__r_e_a_d_m_e_autotoc_md4}
+
+\begin{DoxyItemize}
+\item CPU-\/heavy endpoints controlled via query params
+\item Large payload endpoints to stress network and memory
+\item DB hooks left unoptimized for later performance improvements
+\end{DoxyItemize}\hypertarget{md__r_e_a_d_m_e_autotoc_md5}{}\doxysubsection{\texorpdfstring{Team Ownership}{Team Ownership}}\label{md__r_e_a_d_m_e_autotoc_md5}
+
+\begin{DoxyItemize}
+\item Dona\+: API, HTTP protocol, architecture
+\item Nikhil\+: Database schema \& queries
+\item Meera\+: JMeter \& Docker
+\item Brooks\+: Documentation 
+\end{DoxyItemize}

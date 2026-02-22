@@ -1,0 +1,71 @@
+\doxysection{analytics\+\_\+service.\+py}
+\hypertarget{analytics__service_8py_source}{}\label{analytics__service_8py_source}\index{analytics\_service.py@{analytics\_service.py}}
+\mbox{\hyperlink{analytics__service_8py}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00001}\mbox{\hyperlink{namespaceservices}{00001}}\ \textcolor{comment}{\#\ import\ math}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00003}00003\ \textcolor{comment}{\#\ def\ run\_cpu\_heavy\_analysis(iterations:\ int):}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00004}00004\ \textcolor{comment}{\#\ \ \ \ \ total\ =\ 0}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00005}00005\ \textcolor{comment}{\#\ \ \ \ \ for\ i\ in\ range(iterations):}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00006}00006\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ total\ +=\ math.sqrt(i)}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00007}00007\ \textcolor{comment}{\#\ \ \ \ \ return\ total}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00009}00009\ \textcolor{comment}{\#\ def\ compute\_volatility(ticker:\ str,\ period:\ str,\ iterations:\ int):}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00010}00010\ \textcolor{comment}{\#\ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00011}00011\ \textcolor{comment}{\#\ \ \ \ \ TODO\ (Nikhil):}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00012}00012\ \textcolor{comment}{\#\ \ \ \ \ -\/\ Replace\ loop\ with\ DB\ aggregation}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00013}00013\ \textcolor{comment}{\#\ \ \ \ \ -\/\ Optimize\ query}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00014}00014\ \textcolor{comment}{\#\ \ \ \ \ "{}"{}"{}}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00015}00015\ \textcolor{comment}{\#\ \ \ \ \ acc\ =\ 0}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00016}00016\ \textcolor{comment}{\#\ \ \ \ \ for\ i\ in\ range(iterations):}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00017}00017\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ acc\ +=\ (i\ \%\ 10)\ *\ 0.01}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00018}00018\ \textcolor{comment}{\#\ \ \ \ \ return\ \{}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00019}00019\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ "{}ticker"{}:\ ticker,}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00020}00020\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ "{}period"{}:\ period,}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00021}00021\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ "{}forecasted\_volatility"{}:\ round(acc\ /\ iterations,\ 4),}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00022}00022\ \textcolor{comment}{\#\ \ \ \ \ \ \ \ \ "{}risk\_level"{}:\ "{}High"{}\ if\ acc\ /\ iterations\ >\ 0.3\ else\ "{}Low"{}}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00023}00023\ \textcolor{comment}{\#\ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00025}00025\ \textcolor{comment}{\#\#}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00026}00026\ \textcolor{comment}{\#\ @file\ risk.py}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00027}00027\ \textcolor{comment}{\#\ @brief\ Risk\ analysis\ endpoints.}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00028}00028\ \textcolor{comment}{\#}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00029}00029\ \textcolor{comment}{\#\ @details}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00030}00030\ \textcolor{comment}{\#\ Provides\ Value\ at\ Risk\ (VaR)\ calculation\ using\ Monte\ Carlo\ simulation.}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00031}00031\ \textcolor{comment}{\#\ Designed\ to\ simulate\ computational\ load\ for\ performance\ evaluation.}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00032}00032\ \textcolor{comment}{\#\#}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00033}00033\ \textcolor{keyword}{from}\ \mbox{\hyperlink{namespacedata_1_1database}{data.database}}\ \textcolor{keyword}{import}\ Database}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00034}00034\ \textcolor{keyword}{import}\ statistics}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00036}\mbox{\hyperlink{namespaceservices_1_1analytics__service_a65076d2aac5f4e366bcb6b0db32c28b8}{00036}}\ db\ =\ \mbox{\hyperlink{classdata_1_1database_1_1_database}{Database}}()}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00038}\mbox{\hyperlink{namespaceservices_1_1analytics__service_a6ee679fdeec3865e7db3557b477872e3}{00038}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceservices_1_1analytics__service_a6ee679fdeec3865e7db3557b477872e3}{run\_cpu\_heavy\_analysis}}(window:\ int):}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00039}00039\ \ \ \ \ \textcolor{comment}{\#\ Use\ real\ data\ instead\ of\ dummy\ loop}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00040}00040\ \ \ \ \ all\_stocks\ =\ db.get\_all\_stocks(1000)}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00041}00041\ \ \ \ \ closes\ =\ [row[6]\ \textcolor{keywordflow}{for}\ row\ \textcolor{keywordflow}{in}\ all\_stocks[-\/window:]]\ \ \textcolor{comment}{\#\ Last\ N\ closes}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00042}00042\ \ \ \ \ \textcolor{keywordflow}{if}\ len(closes)\ <\ 2:}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\textcolor{stringliteral}{"{}error"{}}:\ \textcolor{stringliteral}{"{}Not\ enough\ data"{}}\}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00044}00044\ \ \ \ \ \textcolor{keywordflow}{return}\ \{}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00045}00045\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}mean\_close"{}}:\ statistics.mean(closes),}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00046}00046\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}std\_dev"{}}:\ statistics.stdev(closes)\ \textcolor{keywordflow}{if}\ len(closes)\ >\ 1\ \textcolor{keywordflow}{else}\ 0}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00047}00047\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00049}\mbox{\hyperlink{namespaceservices_1_1analytics__service_a37a6b404982963d51f89423cb4c2780a}{00049}}\ \textcolor{keyword}{def\ }\mbox{\hyperlink{namespaceservices_1_1analytics__service_a37a6b404982963d51f89423cb4c2780a}{compute\_volatility}}(ticker:\ str,\ period:\ str,\ iterations:\ int):}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00050}00050\ \ \ \ \ rows\ =\ db.get\_stocks\_by\_company(ticker,\ 252)\ \ \textcolor{comment}{\#\ \string~1y\ trading\ days}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00051}00051\ \ \ \ \ closes\ =\ [row[6]\ \textcolor{keywordflow}{for}\ row\ \textcolor{keywordflow}{in}\ rows]}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00052}00052\ \ \ \ \ \textcolor{keywordflow}{if}\ len(closes)\ <\ 2:}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00053}00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\textcolor{stringliteral}{"{}error"{}}:\ \textcolor{stringliteral}{"{}No\ data\ for\ ticker"{}}\}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00054}00054\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00055}00055\ \ \ \ \ \textcolor{comment}{\#\ Real\ volatility\ (std\ dev\ of\ returns)}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00056}00056\ \ \ \ \ returns\ =\ [(closes[i]\ -\/\ closes[i-\/1])\ /\ closes[i-\/1]\ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ range(1,\ len(closes))]}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00057}00057\ \ \ \ \ vol\ =\ statistics.stdev(returns)\ *\ (252\ **\ 0.5)\ \ \textcolor{comment}{\#\ Annualized}}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00058}00058\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00059}00059\ \ \ \ \ \textcolor{keywordflow}{return}\ \{}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00060}00060\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}ticker"{}}:\ ticker,}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00061}00061\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}period"{}}:\ period,}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00062}00062\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}forecasted\_volatility"{}}:\ round(vol,\ 4),}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00063}00063\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}risk\_level"{}}:\ \textcolor{stringliteral}{"{}High"{}}\ \textcolor{keywordflow}{if}\ vol\ >\ 0.3\ \textcolor{keywordflow}{else}\ \textcolor{stringliteral}{"{}Low"{}},}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}data\_points"{}}:\ len(closes)}
+\DoxyCodeLine{\Hypertarget{analytics__service_8py_source_l00065}00065\ \ \ \ \ \}}
+
+\end{DoxyCode}
