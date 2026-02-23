@@ -17,7 +17,8 @@ class Database:
             high REAL NOT NULL,
             low REAL NOT NULL,
             close REAL NOT NULL,
-            volume INTEGER
+            volume INTEGER,
+            UNIQUE(companyName, date)
         );
         """
         conn = self.connect()
@@ -31,7 +32,7 @@ class Database:
         cursor = conn.cursor()
 
         cursor.execute("""
-            INSERT INTO stocks (companyName, date, open, high, low, close, volume)
+            INSERT OR REPLACE INTO stocks (companyName, date, open, high, low, close, volume)
             VALUES (?, ?, ?, ?, ?, ?, ?)
         """, (
             stock["companyName"],
@@ -74,3 +75,36 @@ class Database:
         rows = cursor.fetchall()
         conn.close()
         return rows
+    
+    # This will delete th ewhole table
+
+    def delete_all_stocks(self):
+        conn = self.connect()
+        cursor = conn.cursor()
+
+        cursor.execute("DELETE FROM stocks")
+
+        conn.commit()
+        conn.close()
+
+    # this will delete rows for a single company 
+
+    def delete_stocks_by_company(self, company):
+        conn = self.connect()
+        cursor = conn.cursor()
+
+        cursor.execute("DELETE FROM stocks WHERE companyName = ?", (company,))
+
+        conn.commit()
+        conn.close()
+
+    # This will delete the stocks by date 
+
+    def delete_stocks_by_date(self, date):
+        conn = self.connect()
+        cursor = conn.cursor()
+
+        cursor.execute("DELETE FROM stocks WHERE date = ?", (date,))
+
+        conn.commit()
+        conn.close()
