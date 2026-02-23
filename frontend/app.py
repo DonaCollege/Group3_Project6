@@ -63,7 +63,6 @@ html, body, [class*="css"] {
 #MainMenu, footer, header { visibility: hidden; }
 .stDeployButton { display: none; }
 
-/* ── Header banner ── */
 .fin-header {
     background: linear-gradient(135deg, #0a0e17 0%, #0f1f2e 50%, #0a0e17 100%);
     border-bottom: 1px solid var(--border);
@@ -100,7 +99,6 @@ html, body, [class*="css"] {
     font-family: 'DM Mono', monospace;
 }
 
-/* ── Metric cards ── */
 .metric-card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -143,7 +141,6 @@ html, body, [class*="css"] {
     margin-top: 0.35rem;
 }
 
-/* ── Pills ── */
 .pill {
     display: inline-block;
     padding: 0.18rem 0.65rem;
@@ -157,7 +154,6 @@ html, body, [class*="css"] {
 .pill-yellow { background: rgba(245,158,11,.15); color: var(--yellow); border: 1px solid rgba(245,158,11,.3); }
 .pill-blue   { background: rgba(0,170,255,.12);  color: var(--blue);   border: 1px solid rgba(0,170,255,.25); }
 
-/* ── Section title ── */
 .section-title {
     font-family: 'Syne', sans-serif;
     font-size: 1rem;
@@ -176,10 +172,8 @@ html, body, [class*="css"] {
     margin-left: 0.4rem;
 }
 
-/* ── Latency text ── */
 .latency { font-size: 0.63rem; color: var(--muted); letter-spacing: 0.04em; }
 
-/* ── Health check row ── */
 .health-row {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -201,7 +195,6 @@ html, body, [class*="css"] {
     margin-top: 0.3rem;
 }
 
-/* ── Buttons ── */
 .stButton > button {
     background: var(--accent) !important;
     color: #0a0e17 !important;
@@ -221,7 +214,6 @@ html, body, [class*="css"] {
     border: 1px solid var(--border) !important;
 }
 
-/* ── Inputs ── */
 .stTextInput > div > div > input,
 .stNumberInput > div > div > input {
     background: var(--surface) !important;
@@ -237,7 +229,6 @@ html, body, [class*="css"] {
     box-shadow: 0 0 0 2px rgba(0,212,170,.15) !important;
 }
 
-/* ── Selectbox ── */
 .stSelectbox > div > div {
     background: var(--surface) !important;
     border: 1px solid var(--border) !important;
@@ -245,13 +236,11 @@ html, body, [class*="css"] {
     color: var(--text) !important;
 }
 
-/* ── Sidebar ── */
 [data-testid="stSidebar"] {
     background: var(--surface) !important;
     border-right: 1px solid var(--border) !important;
 }
 
-/* ── Tabs ── */
 .stTabs [data-baseweb="tab-list"] {
     background: var(--surface) !important;
     border-radius: 10px !important;
@@ -271,17 +260,13 @@ html, body, [class*="css"] {
     color: #0a0e17 !important;
 }
 
-/* ── Dataframe ── */
 .stDataFrame {
     border-radius: 10px !important;
     overflow: hidden !important;
     border: 1px solid var(--border) !important;
 }
 
-/* ── Divider ── */
 hr { border-color: var(--border) !important; }
-
-/* ── Slider ── */
 .stSlider [role="slider"] { background: var(--accent) !important; }
 </style>
 """, unsafe_allow_html=True)
@@ -440,8 +425,10 @@ if "Browse" in page:
         else:
             st.error(f"Price fetch failed: {prices.error}")
 
+    # ── CRUD ──
     st.markdown("---")
     st.markdown('<div class="section-title">⚙️ Manage Records</div>', unsafe_allow_html=True)
+    st.caption("💡 Tip: Search for a company first to find its Stock ID before updating or deleting.")
 
     tab1, tab2, tab3 = st.tabs(["➕  Create", "✏️  Update", "🗑️  Delete"])
 
@@ -452,30 +439,59 @@ if "Browse" in page:
             ticker_input = st.text_input("Ticker Symbol", key="create_ticker")
         with col2:
             sector = st.selectbox("Sector", ["Technology", "Finance", "Healthcare"], key="create_sector")
-        if st.button("➕ Create Company", key="create_btn") and company_name and ticker_input:
-            res = api_request("POST", "/companies", json={"companyName": company_name, "ticker": ticker_input, "sector": sector})
-            st.success("✅ Company created!") if res.ok else st.error(f"❌ {res.error}")
-            if res.ok: st.rerun()
+
+        if st.button("➕ Create Company", key="create_btn"):
+            if company_name and ticker_input:
+                res = api_request("POST", "/companies", json={
+                    "companyName": company_name,
+                    "ticker": ticker_input,
+                    "sector": sector
+                })
+                if res.ok:
+                    st.success("✅ Company created!")
+                    st.rerun()
+                else:
+                    st.error(f"❌ Create failed: {res.error}")
+            else:
+                st.warning("Please fill in Company Name and Ticker.")
 
     with tab2:
         company_id = st.number_input("Stock ID to Update", min_value=1, step=1, key="update_id")
+        st.caption("Find the Stock ID by searching the company above.")
         c1, c2, c3 = st.columns(3)
-        with c1: new_name   = st.text_input("New Name",   key="update_name")
-        with c2: new_ticker = st.text_input("New Ticker", key="update_ticker")
-        with c3: new_sector = st.selectbox("New Sector", ["", "Technology", "Finance", "Healthcare"], key="update_sector")
-        if st.button("✏️ Update", key="update_btn") and new_name:
-            payload = {k: v for k, v in {"companyName": new_name, "ticker": new_ticker, "sector": new_sector}.items() if v}
-            res = api_request("PUT", f"/companies/{company_id}", json=payload)
-            st.success("✅ Updated!") if res.ok else st.error(f"❌ {res.error}")
-            if res.ok: st.rerun()
+        with c1:
+            new_name   = st.text_input("New Name",   key="update_name")
+        with c2:
+            new_ticker = st.text_input("New Ticker", key="update_ticker")
+        with c3:
+            new_sector = st.selectbox("New Sector", ["", "Technology", "Finance", "Healthcare"], key="update_sector")
+
+        if st.button("✏️ Update", key="update_btn"):
+            if new_name or new_ticker or new_sector:
+                payload = {}
+                if new_name:   payload["companyName"] = new_name
+                if new_ticker: payload["ticker"]      = new_ticker
+                if new_sector: payload["sector"]      = new_sector
+                res = api_request("PUT", f"/companies/{company_id}", json=payload)
+                if res.ok:
+                    st.success("✅ Updated!")
+                    st.rerun()
+                else:
+                    st.error(f"❌ Update failed: {res.error}")
+            else:
+                st.warning("Please fill in at least one field to update.")
 
     with tab3:
         delete_id = st.number_input("Stock ID to Delete", min_value=1, step=1, key="delete_id")
         st.warning(f"⚠️ This will permanently delete stock ID **{delete_id}**.")
+
         if st.button("🗑️ Confirm Delete", key="delete_btn"):
             res = api_request("DELETE", f"/companies/{delete_id}")
-            st.success("✅ Deleted!") if res.ok else st.error(f"❌ {res.error}")
-            if res.ok: st.rerun()
+            if res.ok:
+                st.success("✅ Deleted!")
+                st.rerun()
+            else:
+                st.error(f"❌ Delete failed: {res.error}")
 
 
 # =====================================================
@@ -519,7 +535,10 @@ elif "Analytics" in page:
 
         if st.button("🚀 Run Analysis", key="run_analysis"):
             with st.spinner("Running..."):
-                res = api_request("POST", f"/analytics/{ticker}", json={"type": analysis_type, "params": {"window": window}}, timeout=60)
+                res = api_request("POST", f"/analytics/{ticker}", json={
+                    "type": analysis_type,
+                    "params": {"window": window}
+                }, timeout=60)
             if res.ok:
                 st.success(f"✅ Completed in {res.elapsed_ms}ms")
                 st.json(res.data)
@@ -530,12 +549,18 @@ elif "Analytics" in page:
     st.markdown('<div class="section-title">⚠️ Value at Risk (VaR)</div>', unsafe_allow_html=True)
 
     v1, v2 = st.columns(2)
-    with v1: confidence  = st.slider("Confidence Level", 0.90, 0.99, 0.95, 0.01)
-    with v2: simulations = st.slider("Simulations", 10000, 100000, 50000, step=5000)
+    with v1:
+        confidence  = st.slider("Confidence Level", 0.90, 0.99, 0.95, 0.01)
+    with v2:
+        simulations = st.slider("Simulations", 10000, 100000, 50000, step=5000)
 
     if st.button("Calculate VaR", key="calc_var"):
         with st.spinner("Running Monte Carlo simulation..."):
-            res = api_request("POST", "/risk/var", json={"ticker": ticker, "confidence": confidence, "simulations": simulations}, timeout=60)
+            res = api_request("POST", "/risk/var", json={
+                "ticker": ticker,
+                "confidence": confidence,
+                "simulations": simulations
+            }, timeout=60)
         if res.ok:
             var_val = res.data.get("value_at_risk", 0)
             st.markdown(f"""

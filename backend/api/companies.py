@@ -63,6 +63,7 @@
 from fastapi import APIRouter, Query, HTTPException
 from data.database import Database
 from pydantic import BaseModel
+from typing import Optional
 
 router = APIRouter(prefix="/companies", tags=["Companies"])
 db = Database()
@@ -73,9 +74,9 @@ class CompanyCreate(BaseModel):
     sector: str
 
 class CompanyUpdate(BaseModel):
-    companyName: str | None = None
-    ticker: str | None = None
-    sector: str | None = None
+    companyName: Optional[str] = None
+    ticker: Optional[str] = None
+    sector: Optional[str] = None
 
 @router.get("/")
 def search_companies(query: str = Query(default=""), limit: int = 20):
@@ -126,7 +127,7 @@ def get_company_details(ticker: str):
     }
 
 @router.post("/", status_code=201)
-def create_company(payload: dict):  # ← Changed to dict, not Pydantic
+def create_company(payload: dict):  # <- Changed to dict, not Pydantic
     db.insert_stock({
         "companyName": payload.get("companyName", "Unknown"),
         "date": "2026-02-17",
@@ -141,13 +142,60 @@ def create_company(payload: dict):  # ← Changed to dict, not Pydantic
 
 @router.put("/{stock_id}")
 def update_company(stock_id: int, update_data: CompanyUpdate):
-    # Simple update (expand as needed)
-    rows = db.get_all_stocks()
-    if stock_id >= len(rows):
+    ##
+    # @brief Update a stock record by its stockId.
+    # Fixed: now does a real SELECT to check existence and a real UPDATE.
+    ##
+    conn = db.connect()
+    cursor = conn.cursor()
+
+    # Check the record actually exists by primary key
+    cursor.execute("SELECT * FROM stocks WHERE stockId = ?", (stock_id,))
+    row = cursor.fetchone()
+    if not row:
+        conn.close()
         raise HTTPException(status_code=404, detail="Stock not found")
-    return {"message": f"Updated stock {stock_id}", "data": update_data}
+
+    # Build dynamic SET clause from whichever fields were provided
+    fields = []
+    values = []
+    if update_data.companyName is not None:
+        fields.append("companyName = ?")
+        values.append(update_data.companyName)
+    if update_data.ticker is not None:
+        fields.append("companyName = ?")  # ticker is stored as companyName in this schema
+        values.append(update_data.ticker)
+
+    if not fields:
+        conn.close()
+        return {"message": "Nothing to update", "stockId": stock_id}
+
+    values.append(stock_id)
+    sql = f"UPDATE stocks SET {', '.join(fields)} WHERE stockId = ?"
+    cursor.execute(sql, values)
+    conn.commit()
+    conn.close()
+
+    return {"message": f"Stock {stock_id} updated successfully", "stockId": stock_id}
+
 
 @router.delete("/{stock_id}")
 def delete_company(stock_id: int):
-    # Note: SQLite DELETE needs explicit implementation in Database class
-    return {"message": f"Deleted stock {stock_id}"}
+    ##
+    # @brief Delete a stock record by its stockId.
+    # Fixed: now does a real DELETE from the database.
+    ##
+    conn = db.connect()
+    cursor = conn.cursor()
+
+    # Check it exists first
+    cursor.execute("SELECT stockId FROM stocks WHERE stockId = ?", (stock_id,))
+    if not cursor.fetchone():
+        conn.close()
+        raise HTTPException(status_code=404, detail="Stock not found")
+
+    cursor.execute("DELETE FROM stocks WHERE stockId = ?", (stock_id,))
+    conn.commit()
+    conn.close()
+
+    return {"message": f"Stock {stock_id} deleted successfully"}
