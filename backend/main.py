@@ -13,7 +13,7 @@ performance testing baseline (SYS-010, SV-FR-010).
 """
 
 from fastapi import FastAPI
-from backend.api import health, companies, analytics, risk, prices
+from api import health, companies, analytics, risk, prices
 
 
 # Create the FastAPI application instance

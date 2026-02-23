@@ -1,5 +1,5 @@
 # import random
-# from backend.schemas.risk import VaRRequest
+# from schemas.risk import VaRRequest
 
 # def calculate_var(request: VaRRequest):
 #     """
@@ -27,7 +27,7 @@
 ##
 from data.database import Database
 import numpy as np
-from backend.schemas.risk import VaRRequest
+from schemas.risk import VaRRequest
 
 db = Database()
 

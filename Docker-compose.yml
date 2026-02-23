@@ -1,0 +1,31 @@
+services:
+  api:
+    build:
+      context: ./backend
+    container_name: financial_api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - ./data:/app/data
+    environment:
+      - PYTHONPATH=/app
+    depends_on:
+      - db
+
+  ui:
+    build:
+      context: ./frontend
+    container_name: financial_ui
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - api
+
+  db:
+    image: nouchka/sqlite3
+    container_name: financial_db
+    volumes:
+      - ./data:/data

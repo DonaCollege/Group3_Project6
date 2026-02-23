@@ -18,8 +18,8 @@ Team Notes:
 """
 
 from fastapi import APIRouter
-from backend.schemas.analytics import AnalyticsRequest
-from backend.services.analytics_service import (
+from schemas.analytics import AnalyticsRequest
+from services.analytics_service import (
     run_cpu_heavy_analysis,
     compute_volatility
 )
