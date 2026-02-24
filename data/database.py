@@ -1,14 +1,12 @@
 import sqlite3
-import os
 
 class Database:
-    def __init__(self, db_name="stocks.db"):
-        # Absolute path relative to THIS file
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        self.db_path = os.path.join(base_dir, db_name)
+    def __init__(self, db_name="data/data.db"):
+        self.db_name = db_name
 
     def connect(self):
-        return sqlite3.connect(self.db_path)
+        return sqlite3.connect(self.db_name)
+
     def create_table(self):
         CREATE_STOCK_TABLE = """
         CREATE TABLE IF NOT EXISTS stocks (
@@ -19,7 +17,8 @@ class Database:
             high REAL NOT NULL,
             low REAL NOT NULL,
             close REAL NOT NULL,
-            volume INTEGER
+            volume INTEGER,
+            UNIQUE(companyName, date)
         );
         """
         conn = self.connect()
@@ -33,7 +32,7 @@ class Database:
         cursor = conn.cursor()
 
         cursor.execute("""
-            INSERT INTO stocks (companyName, date, open, high, low, close, volume)
+            INSERT OR REPLACE INTO stocks (companyName, date, open, high, low, close, volume)
             VALUES (?, ?, ?, ?, ?, ?, ?)
         """, (
             stock["companyName"],
@@ -77,21 +76,35 @@ class Database:
         conn.close()
         return rows
     
-    
-def delete_stock(self, stock_id: int):
-    conn = self.connect()
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM stocks WHERE stockId = ?", (stock_id,))
-    deleted = cursor.rowcount
-    conn.commit()
-    conn.close()
-    return deleted > 0
-##
-# @file database.py
-# @brief SQLite database access layer.
-#
-# @details
-# Handles database connection, table creation, insertion,
-# and retrieval of stock market data.
-# Implements simple repository pattern.
-##
+    # This will delete th ewhole table
+
+    def delete_all_stocks(self):
+        conn = self.connect()
+        cursor = conn.cursor()
+
+        cursor.execute("DELETE FROM stocks")
+
+        conn.commit()
+        conn.close()
+
+    # this will delete rows for a single company 
+
+    def delete_stocks_by_company(self, company):
+        conn = self.connect()
+        cursor = conn.cursor()
+
+        cursor.execute("DELETE FROM stocks WHERE companyName = ?", (company,))
+
+        conn.commit()
+        conn.close()
+
+    # This will delete the stocks by date 
+
+    def delete_stocks_by_date(self, date):
+        conn = self.connect()
+        cursor = conn.cursor()
+
+        cursor.execute("DELETE FROM stocks WHERE date = ?", (date,))
+
+        conn.commit()
+        conn.close()
