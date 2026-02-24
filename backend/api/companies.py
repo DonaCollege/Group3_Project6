@@ -60,7 +60,7 @@
 # stored in the SQLite database. Supports GET operations for browsing
 # company data and retrieving historical stock prices.
 ##
-from fastapi import APIRouter, Query, HTTPException
+from fastapi import APIRouter, Query, HTTPException, Response
 from data.database import Database
 from pydantic import BaseModel
 from typing import Optional
@@ -200,3 +200,46 @@ def delete_company(stock_id: int):
 
     return {"message": f"Stock {stock_id} deleted successfully"}
 
+@router.patch("/{stock_id}")
+def patch_company(stock_id: int, update_data: CompanyUpdate):
+    ##
+    # @brief Partially update a stock record (SYS-020 d).
+    # @details Updates only the specific fields provided in the JSON payload (SYS-040).
+    ##
+    conn = db.connect()
+    cursor = conn.cursor()
+
+    # Verify existence (SYS-050)
+    cursor.execute("SELECT stockId FROM stocks WHERE stockId = ?", (stock_id,))
+    if not cursor.fetchone():
+        conn.close()
+        raise HTTPException(status_code=404, detail="Stock ID not found")
+
+    # Filter only provided fields (exclude_unset=True)
+    update_dict = update_data.dict(exclude_unset=True)
+    if not update_dict:
+        conn.close()
+        return {"message": "No fields provided for patch"}
+
+    fields = []
+    values = []
+    for key, value in update_dict.items():
+        # Mapping ticker to companyName to match your schema logic
+        db_field = "companyName" if key in ["companyName", "ticker"] else key
+        fields.append(f"{db_field} = ?")
+        values.append(value)
+
+    values.append(stock_id)
+    sql = f"UPDATE stocks SET {', '.join(fields)} WHERE stockId = ?"
+    
+    cursor.execute(sql, values)
+    conn.commit()
+    conn.close()
+
+    return {"message": f"Stock {stock_id} patched", "patched_fields": list(update_dict.keys())}
+
+@router.options("/{stock_id}")
+def options_company(response: Response, stock_id: Optional[int] = None):
+    # This 'Response' type hint requires the import above
+    response.headers["Allow"] = "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+    return {"allowed_methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]}
